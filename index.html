@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SMASH & CO — Burgers Artisanaux</title>
+  <title>SMASH YLLZ — Burgers Artisanaux · Morat, Suisse</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
 
   <!-- NAV -->
   <nav id="navbar">
-    <div class="nav-logo">SMASH <span>&</span> CO</div>
+    <div class="nav-logo">SMASH <span>YLLZ</span></div>
     <ul class="nav-links">
       <li><a href="#menu">Menu</a></li>
       <li><a href="#gallery">Galerie</a></li>
@@ -35,13 +35,19 @@
     </ul>
   </div>
 
+  <!-- ARTICLE DETAIL PAGE (overlay) -->
+  <div id="articlePage" class="article-page hidden">
+    <button class="article-close" onclick="closeArticle()">← Retour au menu</button>
+    <div class="article-content" id="articleContent"></div>
+  </div>
+
   <!-- HERO -->
   <section id="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
-      <p class="hero-tag">Ouvert 7j/7 · Paris 11e</p>
+      <p class="hero-tag">📍 Morat, Suisse · Ouvert 7j/7</p>
       <h1>Le burger<br/><em>qui change tout.</em></h1>
-      <p class="hero-sub">Viande smashée, fromages fondus, sauces maison.<br/>Une obsession artisanale depuis 2019.</p>
+      <p class="hero-sub">Viande smashée, fromages fondus, sauces maison.<br/>Une obsession artisanale au cœur de Morat.</p>
       <div class="hero-btns">
         <button onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Voir la carte</button>
         <button class="outline" onclick="document.getElementById('reservation').scrollIntoView({behavior:'smooth'})">Réserver</button>
@@ -62,157 +68,641 @@
     <span>🌿 Veggie Option</span>
     <span>🍟 Frites Maison</span>
     <span>🍺 Bières Artisanales</span>
+    <span>📍 Morat · Suisse</span>
     <span>🔥 Smash Burger</span>
     <span>🧀 Double Cheese</span>
     <span>🥓 Bacon Crispy</span>
     <span>🌿 Veggie Option</span>
     <span>🍟 Frites Maison</span>
     <span>🍺 Bières Artisanales</span>
+    <span>📍 Morat · Suisse</span>
   </div>
+
+  <!-- BURGER DU MOIS -->
+  <section id="burger-mois">
+    <div class="bm-wrapper" onclick="openArticle('arush')">
+      <div class="bm-left">
+        <div class="bm-tag">⭐ Burger du mois</div>
+        <h2>Arush<br/><em>Burger</em></h2>
+        <p>Le burger signature de la maison. Double patty smashé, sauce truffe maison, oignons caramélisés 4h, raclette fondue et pickles artisanaux. Une explosion de saveurs unique.</p>
+        <div class="bm-price">CHF 21.–</div>
+        <button class="bm-btn">Découvrir →</button>
+      </div>
+      <div class="bm-right">
+        <div class="bm-img-wrap">
+          <svg viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg" class="burger-svg arush-svg">
+            <!-- Glow -->
+            <defs>
+              <radialGradient id="glowArush" cx="50%" cy="60%" r="50%">
+                <stop offset="0%" stop-color="#e8522a" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#e8522a" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="bunTopArush" cx="50%" cy="30%" r="60%">
+                <stop offset="0%" stop-color="#d4822a"/>
+                <stop offset="100%" stop-color="#8b4513"/>
+              </radialGradient>
+              <radialGradient id="cheeseGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ffd700"/>
+                <stop offset="100%" stop-color="#ff8c00"/>
+              </radialGradient>
+            </defs>
+            <ellipse cx="210" cy="310" rx="160" ry="25" fill="url(#glowArush)"/>
+            <!-- Bun bottom -->
+            <ellipse cx="210" cy="290" rx="145" ry="22" fill="#8b4513"/>
+            <ellipse cx="210" cy="278" rx="145" ry="18" fill="#c1692a"/>
+            <!-- Patty 1 -->
+            <ellipse cx="210" cy="265" rx="140" ry="16" fill="#2d1a0e"/>
+            <ellipse cx="210" cy="258" rx="138" ry="13" fill="#3d2010"/>
+            <!-- Cheese drip -->
+            <path d="M80,255 Q95,270 100,275 Q110,268 120,275 Q130,268 150,275 Q165,268 180,275 Q195,268 210,272 Q225,268 240,275 Q255,268 270,275 Q285,268 300,275 Q315,268 325,273 Q330,268 340,255 L340,248 L80,248Z" fill="url(#cheeseGrad)"/>
+            <!-- Lettuce -->
+            <path d="M65,245 Q90,235 110,242 Q130,232 155,240 Q175,230 200,238 Q220,228 245,237 Q265,228 290,236 Q310,228 340,235 L345,242 Q320,238 295,245 Q270,237 245,245 Q220,237 195,245 Q170,237 145,245 Q120,237 95,245 Q78,240 65,245Z" fill="#2d5a1b"/>
+            <path d="M70,242 Q95,232 115,240 Q135,230 160,238 Q180,228 205,236 Q225,226 250,235 Q270,226 295,234 Q315,226 340,233 L340,237 Q315,231 290,238 Q265,231 245,238 Q220,231 195,238 Q170,231 145,238 Q120,231 95,238 Q78,235 70,242Z" fill="#3d7a2b"/>
+            <!-- Patty 2 -->
+            <ellipse cx="210" cy="228" rx="138" ry="14" fill="#2d1a0e"/>
+            <ellipse cx="210" cy="222" rx="136" ry="11" fill="#3d2010"/>
+            <!-- Sauce drops -->
+            <ellipse cx="150" cy="220" rx="15" ry="6" fill="#cc3300" opacity="0.8"/>
+            <ellipse cx="210" cy="218" rx="20" ry="5" fill="#cc3300" opacity="0.8"/>
+            <ellipse cx="270" cy="221" rx="14" ry="5" fill="#cc3300" opacity="0.8"/>
+            <!-- Caramelized onions -->
+            <path d="M90,215 Q120,208 150,213 Q180,206 210,211 Q240,205 270,210 Q300,205 330,210 L330,215 Q300,212 270,216 Q240,212 210,216 Q180,212 150,217 Q120,213 90,215Z" fill="#c17f24"/>
+            <!-- Bun top -->
+            <ellipse cx="210" cy="185" rx="148" ry="28" fill="#8b4513"/>
+            <path d="M62,185 Q65,140 100,118 Q140,100 210,97 Q280,100 320,118 Q355,140 358,185 Z" fill="url(#bunTopArush)"/>
+            <!-- Sesame seeds -->
+            <ellipse cx="160" cy="130" rx="10" ry="5" fill="#f5deb3" transform="rotate(-20,160,130)"/>
+            <ellipse cx="195" cy="112" rx="10" ry="5" fill="#f5deb3" transform="rotate(10,195,112)"/>
+            <ellipse cx="230" cy="110" rx="10" ry="5" fill="#f5deb3" transform="rotate(-5,230,110)"/>
+            <ellipse cx="265" cy="120" rx="10" ry="5" fill="#f5deb3" transform="rotate(15,265,120)"/>
+            <ellipse cx="180" cy="145" rx="8" ry="4" fill="#f5deb3" transform="rotate(5,180,145)"/>
+            <ellipse cx="240" cy="140" rx="8" ry="4" fill="#f5deb3" transform="rotate(-10,240,140)"/>
+            <!-- Gold star badge -->
+            <circle cx="340" cy="95" r="32" fill="#e8522a"/>
+            <text x="340" y="87" text-anchor="middle" font-size="14" fill="white" font-weight="bold" font-family="sans-serif">DU</text>
+            <text x="340" y="101" text-anchor="middle" font-size="14" fill="white" font-weight="bold" font-family="sans-serif">MOIS</text>
+            <text x="340" y="116" text-anchor="middle" font-size="16" fill="#ffd700">★</text>
+          </svg>
+          <div class="bm-flame">🔥</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- MENU -->
   <section id="menu">
     <div class="section-header">
       <p class="label">Notre carte</p>
       <h2>Les <em>incontournables</em></h2>
+      <p class="section-sub">Cliquez sur un article pour le découvrir</p>
     </div>
 
     <div class="menu-tabs">
       <button class="tab active" data-tab="burgers">Burgers</button>
       <button class="tab" data-tab="sides">À côté</button>
       <button class="tab" data-tab="drinks">Boissons</button>
+      <button class="tab" data-tab="desserts">Desserts</button>
     </div>
 
     <div class="menu-grid" id="burgers">
-      <div class="menu-card featured">
+      <div class="menu-card" onclick="openArticle('classic')">
         <div class="badge">Best-seller</div>
-        <div class="menu-img">🍔</div>
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <radialGradient id="bunC" cx="50%" cy="30%" r="60%"><stop offset="0%" stop-color="#d4822a"/><stop offset="100%" stop-color="#8b4513"/></radialGradient>
+            </defs>
+            <ellipse cx="150" cy="195" rx="110" ry="16" fill="#e8522a" opacity="0.2"/>
+            <ellipse cx="150" cy="185" rx="108" ry="14" fill="#8b4513"/>
+            <ellipse cx="150" cy="177" rx="108" ry="12" fill="#c1692a"/>
+            <ellipse cx="150" cy="167" rx="105" ry="11" fill="#2d1a0e"/>
+            <ellipse cx="150" cy="160" rx="103" ry="9" fill="#3d2010"/>
+            <path d="M55,158 Q80,150 105,156 Q125,148 150,154 Q175,147 195,153 Q215,147 245,152 L245,157 Q215,154 195,158 Q175,154 150,158 Q125,154 105,160 Q80,156 55,158Z" fill="#ffd700" opacity="0.9"/>
+            <path d="M50,150 Q80,142 105,148 Q125,140 150,146 Q175,139 200,146 Q220,140 250,144 L248,150 Q218,147 198,153 Q173,147 148,153 Q123,147 103,154 Q78,150 50,150Z" fill="#2d5a1b"/>
+            <ellipse cx="150" cy="138" rx="103" ry="10" fill="#2d1a0e"/>
+            <ellipse cx="150" cy="131" rx="101" ry="8" fill="#3d2010"/>
+            <ellipse cx="110" cy="129" rx="12" ry="5" fill="#cc3300" opacity="0.7"/>
+            <ellipse cx="150" cy="127" rx="14" ry="4" fill="#cc3300" opacity="0.7"/>
+            <ellipse cx="190" cy="129" rx="11" ry="4" fill="#cc3300" opacity="0.7"/>
+            <ellipse cx="150" cy="112" rx="110" ry="20" fill="#8b4513"/>
+            <path d="M40,112 Q43,82 72,65 Q103,50 150,48 Q197,50 228,65 Q257,82 260,112 Z" fill="url(#bunC)"/>
+            <ellipse cx="118" cy="76" rx="8" ry="4" fill="#f5deb3" transform="rotate(-15,118,76)"/>
+            <ellipse cx="148" cy="63" rx="8" ry="4" fill="#f5deb3" transform="rotate(5,148,63)"/>
+            <ellipse cx="180" cy="68" rx="8" ry="4" fill="#f5deb3" transform="rotate(10,180,68)"/>
+            <ellipse cx="133" cy="88" rx="6" ry="3" fill="#f5deb3" transform="rotate(-5,133,88)"/>
+            <ellipse cx="165" cy="85" rx="6" ry="3" fill="#f5deb3" transform="rotate(8,165,85)"/>
+          </svg>
+        </div>
         <div class="menu-info">
           <h3>The Classic Smash</h3>
           <p>Double smash patty, cheddar fondu, salade, cornichons, sauce secrète</p>
           <div class="menu-footer">
-            <span class="price">14€</span>
-            <span class="tags"><span>Signature</span></span>
+            <span class="price">CHF 16.–</span>
+            <span class="see-more">Voir →</span>
           </div>
         </div>
       </div>
-      <div class="menu-card">
-        <div class="menu-img">🥩</div>
+
+      <div class="menu-card" onclick="openArticle('smoke')">
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <radialGradient id="bunS" cx="50%" cy="30%" r="60%"><stop offset="0%" stop-color="#b8621a"/><stop offset="100%" stop-color="#6b3410"/></radialGradient>
+            </defs>
+            <ellipse cx="150" cy="195" rx="110" ry="16" fill="#e8522a" opacity="0.2"/>
+            <ellipse cx="150" cy="185" rx="108" ry="14" fill="#6b3410"/>
+            <ellipse cx="150" cy="177" rx="108" ry="12" fill="#a15420"/>
+            <!-- Triple patty -->
+            <ellipse cx="150" cy="168" rx="105" ry="11" fill="#1a0f07"/>
+            <ellipse cx="150" cy="161" rx="103" ry="9" fill="#2a1508"/>
+            <path d="M48,158 Q78,150 108,156 Q128,148 150,154 Q172,148 192,153 Q212,148 252,152 L252,158 Q212,155 192,159 Q172,155 150,159 Q128,155 108,161 Q78,157 48,158Z" fill="#8B4513" opacity="0.8"/>
+            <ellipse cx="150" cy="150" rx="104" ry="10" fill="#1a0f07"/>
+            <ellipse cx="150" cy="143" rx="102" ry="8" fill="#2a1508"/>
+            <!-- Bacon strips -->
+            <path d="M55,140 Q90,134 125,138 Q150,132 175,137 Q200,132 245,136 L245,141 Q200,138 175,142 Q150,138 125,143 Q90,140 55,140Z" fill="#8b1a1a"/>
+            <path d="M58,136 Q93,130 128,134 Q153,128 178,133 Q203,128 242,132 L242,136 Q203,133 178,137 Q153,133 128,138 Q93,135 58,136Z" fill="#cc2200"/>
+            <path d="M60,132 Q95,126 130,130 Q155,124 180,129 Q205,124 240,128 L240,132 Q205,129 180,133 Q155,129 130,134 Q95,131 60,132Z" fill="#8b1a1a"/>
+            <ellipse cx="150" cy="122" rx="103" ry="10" fill="#1a0f07"/>
+            <ellipse cx="150" cy="115" rx="101" ry="8" fill="#2a1508"/>
+            <!-- BBQ sauce -->
+            <ellipse cx="120" cy="113" rx="14" ry="5" fill="#3d0000" opacity="0.8"/>
+            <ellipse cx="155" cy="111" rx="18" ry="4" fill="#3d0000" opacity="0.8"/>
+            <ellipse cx="190" cy="113" rx="13" ry="4" fill="#3d0000" opacity="0.8"/>
+            <ellipse cx="150" cy="97" rx="110" ry="20" fill="#6b3410"/>
+            <path d="M40,97 Q43,67 72,50 Q103,35 150,33 Q197,35 228,50 Q257,67 260,97 Z" fill="url(#bunS)"/>
+            <ellipse cx="118" cy="61" rx="8" ry="4" fill="#f5deb3" transform="rotate(-15,118,61)"/>
+            <ellipse cx="148" cy="48" rx="8" ry="4" fill="#f5deb3" transform="rotate(5,148,48)"/>
+            <ellipse cx="180" cy="53" rx="8" ry="4" fill="#f5deb3" transform="rotate(10,180,53)"/>
+          </svg>
+        </div>
         <div class="menu-info">
           <h3>Smoke & Fire</h3>
           <p>Triple patty, bacon fumé, oignons caramélisés, sauce BBQ maison</p>
           <div class="menu-footer">
-            <span class="price">17€</span>
-            <span class="tags"><span>Intense</span></span>
+            <span class="price">CHF 19.–</span>
+            <span class="see-more">Voir →</span>
           </div>
         </div>
       </div>
-      <div class="menu-card">
-        <div class="menu-img">🧀</div>
+
+      <div class="menu-card" onclick="openArticle('cheesy')">
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <radialGradient id="bunCh" cx="50%" cy="30%" r="60%"><stop offset="0%" stop-color="#d4822a"/><stop offset="100%" stop-color="#8b4513"/></radialGradient>
+            </defs>
+            <ellipse cx="150" cy="195" rx="110" ry="16" fill="#ffd700" opacity="0.3"/>
+            <ellipse cx="150" cy="185" rx="108" ry="14" fill="#8b4513"/>
+            <ellipse cx="150" cy="177" rx="108" ry="12" fill="#c1692a"/>
+            <ellipse cx="150" cy="167" rx="105" ry="11" fill="#2d1a0e"/>
+            <ellipse cx="150" cy="160" rx="103" ry="9" fill="#3d2010"/>
+            <!-- Quad cheese -->
+            <path d="M45,158 Q75,148 105,154 Q130,145 150,151 Q170,145 195,150 Q215,145 255,149 L255,157 L245,162 Q215,158 195,163 Q170,158 150,163 Q130,158 105,163 Q78,160 50,163Z" fill="#ffd700"/>
+            <path d="M48,155 Q78,145 108,151 Q133,142 150,148 Q167,142 192,148 Q212,142 252,146 L252,153 Q212,150 192,155 Q167,150 150,155 Q133,150 108,156 Q78,152 48,155Z" fill="#ff8c00"/>
+            <ellipse cx="150" cy="140" rx="104" ry="10" fill="#2d1a0e"/>
+            <ellipse cx="150" cy="133" rx="102" ry="8" fill="#3d2010"/>
+            <!-- More cheese -->
+            <path d="M46,130 Q76,122 106,127 Q131,120 150,125 Q169,120 194,125 Q214,120 254,124 L254,130 Q214,127 194,132 Q169,127 150,132 Q131,127 106,132 Q76,128 46,130Z" fill="#ffd700" opacity="0.8"/>
+            <ellipse cx="150" cy="118" rx="103" ry="10" fill="#2d1a0e"/>
+            <ellipse cx="150" cy="111" rx="101" ry="8" fill="#3d2010"/>
+            <ellipse cx="150" cy="97" rx="110" ry="20" fill="#8b4513"/>
+            <path d="M40,97 Q43,67 72,50 Q103,35 150,33 Q197,35 228,50 Q257,67 260,97 Z" fill="url(#bunCh)"/>
+            <ellipse cx="118" cy="61" rx="8" ry="4" fill="#f5deb3" transform="rotate(-15,118,61)"/>
+            <ellipse cx="148" cy="48" rx="8" ry="4" fill="#f5deb3" transform="rotate(5,148,48)"/>
+            <ellipse cx="180" cy="53" rx="8" ry="4" fill="#f5deb3" transform="rotate(10,180,53)"/>
+            <ellipse cx="133" cy="74" rx="6" ry="3" fill="#f5deb3" transform="rotate(-5,133,74)"/>
+            <ellipse cx="163" cy="70" rx="6" ry="3" fill="#f5deb3" transform="rotate(8,163,70)"/>
+          </svg>
+        </div>
         <div class="menu-info">
           <h3>The Cheesy</h3>
           <p>Quatre fromages, oignons frits, moutarde à l'ancienne, pain brioché</p>
           <div class="menu-footer">
-            <span class="price">15€</span>
-            <span class="tags"><span>Gourmand</span></span>
+            <span class="price">CHF 17.–</span>
+            <span class="see-more">Voir →</span>
           </div>
         </div>
       </div>
-      <div class="menu-card">
-        <div class="menu-img">🌿</div>
+
+      <div class="menu-card" onclick="openArticle('green')">
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <radialGradient id="bunG" cx="50%" cy="30%" r="60%"><stop offset="0%" stop-color="#8bc34a"/><stop offset="100%" stop-color="#558b2f"/></radialGradient>
+            </defs>
+            <ellipse cx="150" cy="195" rx="110" ry="16" fill="#4caf50" opacity="0.2"/>
+            <ellipse cx="150" cy="185" rx="108" ry="14" fill="#558b2f"/>
+            <ellipse cx="150" cy="177" rx="108" ry="12" fill="#7cb342"/>
+            <ellipse cx="150" cy="167" rx="105" ry="11" fill="#3d5a1b"/>
+            <ellipse cx="150" cy="160" rx="103" ry="9" fill="#4a6e22"/>
+            <!-- Avocado -->
+            <path d="M50,157 Q80,148 110,154 Q135,146 150,152 Q165,146 190,151 Q210,146 250,150 L250,157 Q210,153 190,158 Q165,153 150,158 Q135,153 110,159 Q80,155 50,157Z" fill="#68a53a"/>
+            <!-- Tomatoes -->
+            <ellipse cx="110" cy="150" rx="18" ry="7" fill="#cc2200" opacity="0.85"/>
+            <ellipse cx="150" cy="148" rx="18" ry="6" fill="#cc2200" opacity="0.85"/>
+            <ellipse cx="190" cy="150" rx="17" ry="6" fill="#cc2200" opacity="0.85"/>
+            <!-- Veggie patty -->
+            <ellipse cx="150" cy="139" rx="104" ry="10" fill="#8b6914"/>
+            <ellipse cx="150" cy="132" rx="102" ry="9" fill="#a07820"/>
+            <!-- Roquette -->
+            <path d="M52,128 Q82,118 112,124 Q137,116 150,122 Q163,116 188,121 Q208,116 248,120 L248,126 Q208,122 188,128 Q163,122 150,128 Q137,122 112,129 Q82,125 52,128Z" fill="#1b5e20"/>
+            <ellipse cx="150" cy="107" rx="110" ry="20" fill="#558b2f"/>
+            <path d="M40,107 Q43,77 72,60 Q103,45 150,43 Q197,45 228,60 Q257,77 260,107 Z" fill="url(#bunG)"/>
+            <ellipse cx="118" cy="71" rx="8" ry="4" fill="#c8e6c9" transform="rotate(-15,118,71)"/>
+            <ellipse cx="148" cy="58" rx="8" ry="4" fill="#c8e6c9" transform="rotate(5,148,58)"/>
+            <ellipse cx="180" cy="63" rx="8" ry="4" fill="#c8e6c9" transform="rotate(10,180,63)"/>
+          </svg>
+        </div>
         <div class="menu-info">
           <h3>Green Smash</h3>
           <p>Galette de pois chiches, avocat, roquette, tomates cerises, mayo végane</p>
           <div class="menu-footer">
-            <span class="price">13€</span>
-            <span class="tags"><span>Végé</span></span>
+            <span class="price">CHF 15.–</span>
+            <span class="see-more">Voir →</span>
           </div>
         </div>
       </div>
-      <div class="menu-card">
-        <div class="menu-img">🌶️</div>
+
+      <div class="menu-card" onclick="openArticle('hot')">
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <radialGradient id="bunH" cx="50%" cy="30%" r="60%"><stop offset="0%" stop-color="#c0392b"/><stop offset="100%" stop-color="#7b241c"/></radialGradient>
+            </defs>
+            <ellipse cx="150" cy="195" rx="110" ry="16" fill="#ff4444" opacity="0.3"/>
+            <ellipse cx="150" cy="185" rx="108" ry="14" fill="#7b241c"/>
+            <ellipse cx="150" cy="177" rx="108" ry="12" fill="#a93226"/>
+            <ellipse cx="150" cy="167" rx="105" ry="11" fill="#1a0505"/>
+            <ellipse cx="150" cy="160" rx="103" ry="9" fill="#2a0808"/>
+            <!-- Hot sauce -->
+            <path d="M50,157 Q80,149 110,154 Q135,147 150,152 Q165,147 190,152 Q210,147 250,151 L250,157 Q210,154 190,159 Q165,154 150,159 Q135,154 110,160 Q80,156 50,157Z" fill="#cc0000"/>
+            <!-- Jalapeños -->
+            <ellipse cx="100" cy="150" rx="14" ry="5" fill="#2d6a1e" transform="rotate(-20,100,150)"/>
+            <ellipse cx="130" cy="148" rx="14" ry="5" fill="#2d6a1e" transform="rotate(10,130,148)"/>
+            <ellipse cx="165" cy="149" rx="14" ry="5" fill="#2d6a1e" transform="rotate(-10,165,149)"/>
+            <ellipse cx="200" cy="150" rx="13" ry="5" fill="#2d6a1e" transform="rotate(15,200,150)"/>
+            <ellipse cx="150" cy="137" rx="104" ry="10" fill="#1a0505"/>
+            <ellipse cx="150" cy="130" rx="102" ry="9" fill="#2a0808"/>
+            <!-- More hot sauce drip -->
+            <ellipse cx="115" cy="128" rx="13" ry="4" fill="#990000" opacity="0.9"/>
+            <ellipse cx="150" cy="126" rx="16" ry="4" fill="#990000" opacity="0.9"/>
+            <ellipse cx="185" cy="128" rx="12" ry="4" fill="#990000" opacity="0.9"/>
+            <ellipse cx="150" cy="110" rx="110" ry="20" fill="#7b241c"/>
+            <path d="M40,110 Q43,80 72,63 Q103,48 150,46 Q197,48 228,63 Q257,80 260,110 Z" fill="url(#bunH)"/>
+            <text x="150" y="85" text-anchor="middle" font-size="28" opacity="0.6">🌶️</text>
+            <ellipse cx="118" cy="74" rx="8" ry="4" fill="#f5deb3" transform="rotate(-15,118,74)"/>
+            <ellipse cx="148" cy="61" rx="8" ry="4" fill="#f5deb3" transform="rotate(5,148,61)"/>
+            <ellipse cx="180" cy="66" rx="8" ry="4" fill="#f5deb3" transform="rotate(10,180,66)"/>
+          </svg>
+        </div>
         <div class="menu-info">
           <h3>Hot Mess</h3>
-          <p>Patty épicé, jalapeños, sauce sriracha, pickles maison, fromage pepper jack</p>
+          <p>Patty épicé, jalapeños, sauce sriracha, pickles maison, pepper jack</p>
           <div class="menu-footer">
-            <span class="price">15€</span>
-            <span class="tags"><span>Piquant 🔥</span></span>
+            <span class="price">CHF 17.–</span>
+            <span class="see-more">Voir →</span>
           </div>
         </div>
       </div>
-      <div class="menu-card">
-        <div class="menu-img">🍄</div>
+
+      <div class="menu-card" onclick="openArticle('truffle')">
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <radialGradient id="bunT" cx="50%" cy="30%" r="60%"><stop offset="0%" stop-color="#d4822a"/><stop offset="100%" stop-color="#8b4513"/></radialGradient>
+            </defs>
+            <ellipse cx="150" cy="195" rx="110" ry="16" fill="#ffd700" opacity="0.25"/>
+            <ellipse cx="150" cy="185" rx="108" ry="14" fill="#8b4513"/>
+            <ellipse cx="150" cy="177" rx="108" ry="12" fill="#c1692a"/>
+            <!-- Wagyu patty dark -->
+            <ellipse cx="150" cy="167" rx="105" ry="11" fill="#0d0806"/>
+            <ellipse cx="150" cy="160" rx="103" ry="9" fill="#1a0f08"/>
+            <!-- Truffle mayo gold -->
+            <path d="M50,157 Q80,149 110,155 Q135,147 150,153 Q165,147 190,152 Q210,147 250,151 L250,157 Q210,154 190,159 Q165,154 150,159 Q135,154 110,161 Q80,157 50,157Z" fill="#c8a800"/>
+            <!-- Mushrooms -->
+            <ellipse cx="100" cy="150" rx="15" ry="7" fill="#8d6e63"/>
+            <ellipse cx="135" cy="148" rx="14" ry="6" fill="#795548"/>
+            <ellipse cx="170" cy="149" rx="14" ry="7" fill="#8d6e63"/>
+            <ellipse cx="205" cy="150" rx="13" ry="6" fill="#795548"/>
+            <ellipse cx="150" cy="137" rx="104" ry="10" fill="#0d0806"/>
+            <ellipse cx="150" cy="130" rx="102" ry="9" fill="#1a0f08"/>
+            <!-- Comté cheese gold -->
+            <path d="M48,127 Q78,119 108,125 Q133,117 150,123 Q167,117 192,122 Q212,117 252,121 L252,127 Q212,124 192,129 Q167,124 150,129 Q133,124 108,130 Q78,126 48,127Z" fill="#d4a017"/>
+            <ellipse cx="150" cy="110" rx="110" ry="20" fill="#8b4513"/>
+            <path d="M40,110 Q43,80 72,63 Q103,48 150,46 Q197,48 228,63 Q257,80 260,110 Z" fill="url(#bunT)"/>
+            <!-- Gold shimmer -->
+            <path d="M100,78 Q130,68 160,72 Q180,66 200,70" stroke="#ffd700" stroke-width="2" fill="none" opacity="0.5"/>
+            <ellipse cx="118" cy="74" rx="8" ry="4" fill="#f5deb3" transform="rotate(-15,118,74)"/>
+            <ellipse cx="148" cy="61" rx="8" ry="4" fill="#f5deb3" transform="rotate(5,148,61)"/>
+            <ellipse cx="180" cy="66" rx="8" ry="4" fill="#f5deb3" transform="rotate(10,180,66)"/>
+            <text x="248" y="45" font-size="20" text-anchor="middle">✨</text>
+          </svg>
+        </div>
         <div class="menu-info">
           <h3>Truffle Royale</h3>
-          <p>Patty wagyu, champignons sautés, truffe noire, comté 18 mois, mayo truffe</p>
+          <p>Patty wagyu, champignons, truffe noire, comté 18 mois, mayo truffe</p>
           <div class="menu-footer">
-            <span class="price">22€</span>
+            <span class="price">CHF 24.–</span>
             <span class="tags"><span>Premium</span></span>
+            <span class="see-more">Voir →</span>
           </div>
         </div>
       </div>
     </div>
 
     <div class="menu-grid hidden" id="sides">
-      <div class="menu-card">
-        <div class="menu-img">🍟</div>
+      <div class="menu-card" onclick="openArticle('frites')">
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <linearGradient id="friteGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f5d05a"/><stop offset="100%" stop-color="#c8860a"/></linearGradient>
+            </defs>
+            <ellipse cx="150" cy="200" rx="90" ry="14" fill="#e8522a" opacity="0.2"/>
+            <!-- Frites bag -->
+            <path d="M90,185 L100,100 L200,100 L210,185 Z" fill="#cc2200"/>
+            <path d="M90,185 L100,100 L110,100 L100,185Z" fill="#991a00"/>
+            <rect x="85" y="95" width="130" height="18" rx="4" fill="#cc2200"/>
+            <rect x="85" y="95" width="130" height="8" rx="4" fill="#dd3300"/>
+            <!-- Frites sticking out -->
+            <rect x="108" y="35" width="12" height="75" rx="6" fill="url(#friteGrad)"/>
+            <rect x="126" y="25" width="12" height="82" rx="6" fill="url(#friteGrad)"/>
+            <rect x="144" y="30" width="12" height="78" rx="6" fill="url(#friteGrad)"/>
+            <rect x="162" y="22" width="12" height="85" rx="6" fill="url(#friteGrad)"/>
+            <rect x="180" y="32" width="12" height="75" rx="6" fill="url(#friteGrad)"/>
+            <!-- Salt dots -->
+            <circle cx="140" cy="55" r="2" fill="white" opacity="0.6"/>
+            <circle cx="155" cy="45" r="2" fill="white" opacity="0.6"/>
+            <circle cx="170" cy="60" r="2" fill="white" opacity="0.6"/>
+            <circle cx="130" cy="65" r="2" fill="white" opacity="0.6"/>
+            <text x="150" y="160" text-anchor="middle" font-size="11" fill="white" font-weight="bold" font-family="sans-serif">SMASH YLLZ</text>
+          </svg>
+        </div>
         <div class="menu-info">
           <h3>Frites Maison</h3>
           <p>Pommes de terre fraîches, double friture, sel de Guérande</p>
-          <div class="menu-footer"><span class="price">5€</span></div>
+          <div class="menu-footer"><span class="price">CHF 6.–</span><span class="see-more">Voir →</span></div>
         </div>
       </div>
-      <div class="menu-card">
-        <div class="menu-img">🧅</div>
+
+      <div class="menu-card" onclick="openArticle('rings')">
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <radialGradient id="ringGrad" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f5d05a"/><stop offset="100%" stop-color="#c8860a"/></radialGradient>
+            </defs>
+            <ellipse cx="150" cy="205" rx="100" ry="12" fill="#e8522a" opacity="0.2"/>
+            <!-- Rings stacked -->
+            <ellipse cx="150" cy="170" rx="85" ry="22" fill="#c8860a"/>
+            <ellipse cx="150" cy="165" rx="85" ry="22" fill="#f5d05a"/>
+            <ellipse cx="150" cy="165" rx="55" ry="14" fill="#c8860a"/>
+            <ellipse cx="150" cy="162" rx="55" ry="14" fill="#d4922a"/>
+
+            <ellipse cx="150" cy="138" rx="80" ry="20" fill="#c8860a"/>
+            <ellipse cx="150" cy="133" rx="80" ry="20" fill="#f5d05a"/>
+            <ellipse cx="150" cy="133" rx="52" ry="13" fill="#c8860a"/>
+            <ellipse cx="150" cy="130" rx="52" ry="13" fill="#d4922a"/>
+
+            <ellipse cx="150" cy="108" rx="75" ry="19" fill="#c8860a"/>
+            <ellipse cx="150" cy="103" rx="75" ry="19" fill="#f5d05a"/>
+            <ellipse cx="150" cy="103" rx="48" ry="12" fill="#c8860a"/>
+            <ellipse cx="150" cy="100" rx="48" ry="12" fill="#d4922a"/>
+            <!-- Sauce cup -->
+            <path d="M220,155 L215,195 Q215,200 230,200 Q245,200 245,195 L240,155 Z" fill="#cc2200"/>
+            <ellipse cx="230" cy="155" rx="11" ry="5" fill="#dd3300"/>
+            <path d="M222,160 Q230,175 238,160" fill="white" opacity="0.3" stroke="white" stroke-width="1"/>
+          </svg>
+        </div>
         <div class="menu-info">
           <h3>Onion Rings</h3>
-          <p>Oignons croustillants, sauce ranch maison</p>
-          <div class="menu-footer"><span class="price">6€</span></div>
+          <p>Oignons croustillants, panure dorée, sauce ranch maison</p>
+          <div class="menu-footer"><span class="price">CHF 7.–</span><span class="see-more">Voir →</span></div>
         </div>
       </div>
-      <div class="menu-card">
-        <div class="menu-img">🥗</div>
-        <div class="menu-info">
-          <h3>Coleslaw</h3>
-          <p>Chou, carotte, mayonnaise légère, ciboulette</p>
-          <div class="menu-footer"><span class="price">4€</span></div>
-        </div>
-      </div>
-      <div class="menu-card featured">
+
+      <div class="menu-card" onclick="openArticle('sweetfries')">
         <div class="badge">Nouveau</div>
-        <div class="menu-img">🍠</div>
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <linearGradient id="sweetGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff8c42"/><stop offset="100%" stop-color="#c0392b"/></linearGradient>
+            </defs>
+            <ellipse cx="150" cy="200" rx="90" ry="14" fill="#ff8c42" opacity="0.2"/>
+            <path d="M90,185 L100,100 L200,100 L210,185 Z" fill="#e65100"/>
+            <rect x="85" y="95" width="130" height="18" rx="4" fill="#e65100"/>
+            <rect x="85" y="95" width="130" height="8" rx="4" fill="#f57c00"/>
+            <!-- Sweet fries orange-red -->
+            <rect x="108" y="35" width="12" height="75" rx="6" fill="url(#sweetGrad)"/>
+            <rect x="126" y="25" width="12" height="82" rx="6" fill="url(#sweetGrad)"/>
+            <rect x="144" y="30" width="12" height="78" rx="6" fill="url(#sweetGrad)"/>
+            <rect x="162" y="22" width="12" height="85" rx="6" fill="url(#sweetGrad)"/>
+            <rect x="180" y="32" width="12" height="75" rx="6" fill="url(#sweetGrad)"/>
+            <!-- Honey drizzle -->
+            <path d="M115,45 Q125,55 135,48 Q145,58 155,50 Q165,60 175,52" stroke="#ffd700" stroke-width="3" fill="none" opacity="0.8"/>
+            <text x="150" y="160" text-anchor="middle" font-size="11" fill="white" font-weight="bold" font-family="sans-serif">SMASH YLLZ</text>
+          </svg>
+        </div>
         <div class="menu-info">
           <h3>Sweet Fries</h3>
-          <p>Frites de patate douce, sauce miel-sriracha</p>
-          <div class="menu-footer"><span class="price">6€</span></div>
+          <p>Frites de patate douce, sauce miel-sriracha maison</p>
+          <div class="menu-footer"><span class="price">CHF 7.–</span><span class="see-more">Voir →</span></div>
         </div>
       </div>
     </div>
 
     <div class="menu-grid hidden" id="drinks">
-      <div class="menu-card">
-        <div class="menu-img">🍺</div>
-        <div class="menu-info">
-          <h3>Bières Artisanales</h3>
-          <p>Sélection de 6 bières locales en rotation mensuelle</p>
-          <div class="menu-footer"><span class="price">6-8€</span></div>
-        </div>
-      </div>
-      <div class="menu-card featured">
+      <div class="menu-card" onclick="openArticle('milkshake')">
         <div class="badge">Maison</div>
-        <div class="menu-img">🥤</div>
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <linearGradient id="shakeGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#f8bbd0"/><stop offset="100%" stop-color="#e91e8c"/></linearGradient>
+            </defs>
+            <ellipse cx="150" cy="205" rx="65" ry="10" fill="#e91e8c" opacity="0.2"/>
+            <!-- Glass -->
+            <path d="M100,60 L88,190 Q88,200 150,200 Q212,200 212,190 L200,60 Z" fill="url(#shakeGrad)" opacity="0.85"/>
+            <path d="M100,60 L108,60 L96,190 Q88,198 88,190Z" fill="white" opacity="0.15"/>
+            <!-- Whipped cream top -->
+            <ellipse cx="150" cy="62" rx="55" ry="18" fill="white"/>
+            <path d="M95,60 Q110,45 125,55 Q135,40 150,52 Q165,38 178,52 Q190,43 205,56 L205,62 Q190,50 178,58 Q165,42 150,56 Q135,44 125,59 Q110,49 95,60Z" fill="white"/>
+            <!-- Cherry -->
+            <circle cx="150" cy="38" r="10" fill="#cc0000"/>
+            <path d="M150,28 Q158,15 165,20" stroke="#4a2500" stroke-width="2" fill="none"/>
+            <!-- Straw -->
+            <rect x="168" y="10" width="8" height="120" rx="4" fill="#f44336"/>
+            <rect x="168" y="10" width="4" height="120" rx="2" fill="#ff7043"/>
+            <!-- Sprinkles -->
+            <rect x="125" y="48" width="8" height="3" rx="1" fill="#ff5722" transform="rotate(-30,125,48)"/>
+            <rect x="145" y="43" width="8" height="3" rx="1" fill="#2196f3" transform="rotate(20,145,43)"/>
+            <rect x="165" y="50" width="8" height="3" rx="1" fill="#4caf50" transform="rotate(-15,165,50)"/>
+            <rect x="135" y="55" width="8" height="3" rx="1" fill="#ffd700" transform="rotate(30,135,55)"/>
+          </svg>
+        </div>
         <div class="menu-info">
           <h3>Milkshakes</h3>
           <p>Vanille, chocolat, caramel beurre salé — faits à la commande</p>
-          <div class="menu-footer"><span class="price">7€</span></div>
+          <div class="menu-footer"><span class="price">CHF 8.–</span><span class="see-more">Voir →</span></div>
         </div>
       </div>
-      <div class="menu-card">
-        <div class="menu-img">🧃</div>
+
+      <div class="menu-card" onclick="openArticle('biere')">
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <linearGradient id="beerGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#f9a825"/><stop offset="100%" stop-color="#e65100"/></linearGradient>
+            </defs>
+            <ellipse cx="150" cy="205" rx="60" ry="10" fill="#f9a825" opacity="0.2"/>
+            <!-- Mug body -->
+            <path d="M95,70 L88,190 Q88,200 150,200 Q212,200 212,190 L205,70 Z" fill="url(#beerGrad)" opacity="0.9"/>
+            <!-- Handle -->
+            <path d="M205,90 Q240,90 240,130 Q240,170 205,170" stroke="#c17900" stroke-width="16" fill="none" stroke-linecap="round"/>
+            <path d="M205,90 Q232,90 232,130 Q232,170 205,170" stroke="#f9a825" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <!-- Foam top -->
+            <ellipse cx="150" cy="72" rx="58" ry="20" fill="white"/>
+            <circle cx="118" cy="62" r="16" fill="white"/>
+            <circle cx="142" cy="57" r="18" fill="white"/>
+            <circle cx="165" cy="59" r="16" fill="white"/>
+            <circle cx="185" cy="65" r="13" fill="white"/>
+            <!-- Bubbles -->
+            <circle cx="125" cy="140" r="4" fill="white" opacity="0.3"/>
+            <circle cx="150" cy="120" r="3" fill="white" opacity="0.3"/>
+            <circle cx="170" cy="150" r="5" fill="white" opacity="0.3"/>
+            <circle cx="135" cy="165" r="3" fill="white" opacity="0.3"/>
+          </svg>
+        </div>
         <div class="menu-info">
-          <h3>Softs & Jus</h3>
-          <p>Eau, sodas, jus de fruits frais pressés</p>
-          <div class="menu-footer"><span class="price">3-5€</span></div>
+          <h3>Bières Artisanales</h3>
+          <p>Sélection de bières locales en rotation mensuelle</p>
+          <div class="menu-footer"><span class="price">CHF 7–9.–</span><span class="see-more">Voir →</span></div>
+        </div>
+      </div>
+
+      <div class="menu-card" onclick="openArticle('softs')">
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <linearGradient id="softGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#81d4fa"/><stop offset="100%" stop-color="#0288d1"/></linearGradient>
+            </defs>
+            <ellipse cx="150" cy="205" rx="55" ry="9" fill="#0288d1" opacity="0.2"/>
+            <!-- Cup -->
+            <path d="M100,65 L92,195 Q92,202 150,202 Q208,202 208,195 L200,65 Z" fill="url(#softGrad)" opacity="0.85"/>
+            <!-- Lid -->
+            <ellipse cx="150" cy="65" rx="52" ry="12" fill="#0277bd"/>
+            <ellipse cx="150" cy="62" rx="48" ry="10" fill="#039be5"/>
+            <!-- Straw -->
+            <rect x="155" y="5" width="9" height="125" rx="4" fill="white"/>
+            <rect x="155" y="5" width="4" height="125" rx="2" fill="#e0e0e0"/>
+            <!-- Ice cubes -->
+            <rect x="115" y="120" width="25" height="22" rx="4" fill="white" opacity="0.4"/>
+            <rect x="145" y="130" width="22" height="20" rx="4" fill="white" opacity="0.35"/>
+            <rect x="170" y="118" width="23" height="22" rx="4" fill="white" opacity="0.4"/>
+            <!-- Bubbles -->
+            <circle cx="130" cy="160" r="5" fill="white" opacity="0.3"/>
+            <circle cx="155" cy="170" r="4" fill="white" opacity="0.3"/>
+            <circle cx="175" cy="155" r="6" fill="white" opacity="0.25"/>
+            <text x="150" y="100" text-anchor="middle" font-size="10" fill="white" opacity="0.7" font-family="sans-serif">SMASH YLLZ</text>
+          </svg>
+        </div>
+        <div class="menu-info">
+          <h3>Softs & Jus Frais</h3>
+          <p>Eau, sodas, jus de fruits frais pressés du jour</p>
+          <div class="menu-footer"><span class="price">CHF 4–6.–</span><span class="see-more">Voir →</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-grid hidden" id="desserts">
+      <div class="menu-card" onclick="openArticle('brownie')">
+        <div class="badge">Fait maison</div>
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <radialGradient id="brownieGrad" cx="50%" cy="50%" r="60%"><stop offset="0%" stop-color="#5d2e0c"/><stop offset="100%" stop-color="#3e1a05"/></radialGradient>
+            </defs>
+            <ellipse cx="150" cy="205" rx="110" ry="12" fill="#5d2e0c" opacity="0.2"/>
+            <!-- Brownie block -->
+            <path d="M60,100 L240,100 L240,185 Q240,195 150,195 Q60,195 60,185 Z" fill="url(#brownieGrad)"/>
+            <path d="M60,100 L240,100 L240,110 L60,110Z" fill="#7a3e10"/>
+            <!-- Cracks texture -->
+            <path d="M90,125 Q120,118 140,130 Q160,120 190,128" stroke="#2a1208" stroke-width="2" fill="none" opacity="0.5"/>
+            <path d="M80,148 Q110,140 140,150 Q165,142 220,148" stroke="#2a1208" stroke-width="2" fill="none" opacity="0.5"/>
+            <!-- Chocolate sauce drip -->
+            <path d="M95,100 Q93,85 91,75 Q89,65 95,100" fill="#1a0a02"/>
+            <path d="M130,100 Q129,82 127,70 Q125,58 131,100" fill="#1a0a02"/>
+            <path d="M170,100 Q169,86 167,74 Q165,62 171,100" fill="#1a0a02"/>
+            <path d="M205,100 Q204,87 202,76 Q200,65 206,100" fill="#1a0a02"/>
+            <!-- Vanilla ice cream scoop -->
+            <ellipse cx="150" cy="88" rx="48" ry="30" fill="#fdf3dc"/>
+            <ellipse cx="150" cy="78" rx="42" ry="24" fill="#fff8e7"/>
+            <!-- Caramel drizzle -->
+            <path d="M115,75 Q135,85 150,78 Q165,88 185,80" stroke="#c8860a" stroke-width="3" fill="none" opacity="0.8"/>
+            <path d="M120,85 Q140,95 155,88 Q170,98 190,90" stroke="#c8860a" stroke-width="2" fill="none" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="menu-info">
+          <h3>Brownie Fondant</h3>
+          <p>Chocolat noir 70%, boule de glace vanille, sauce caramel beurre salé</p>
+          <div class="menu-footer"><span class="price">CHF 9.–</span><span class="see-more">Voir →</span></div>
+        </div>
+      </div>
+
+      <div class="menu-card" onclick="openArticle('cheesecake')">
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <linearGradient id="cakeGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#fff9f0"/><stop offset="100%" stop-color="#ffe0b2"/></linearGradient>
+            </defs>
+            <ellipse cx="150" cy="205" rx="100" ry="12" fill="#ff7043" opacity="0.2"/>
+            <!-- Cake base (crust) -->
+            <path d="M55,160 L75,190 Q75,200 150,200 Q225,200 225,190 L245,160 Z" fill="#8d6e63"/>
+            <path d="M55,160 L245,160 L245,167 L55,167Z" fill="#a1887f"/>
+            <!-- Cheesecake body (triangle slice) -->
+            <path d="M150,50 L55,165 L245,165 Z" fill="url(#cakeGrad)"/>
+            <path d="M150,50 L245,165 L255,155 L160,45Z" fill="#fff3e0"/>
+            <!-- Strawberry topping -->
+            <ellipse cx="150" cy="52" rx="30" ry="12" fill="#e53935" opacity="0.9"/>
+            <ellipse cx="120" cy="70" rx="20" ry="9" fill="#e53935" opacity="0.8"/>
+            <ellipse cx="175" cy="75" rx="18" ry="8" fill="#e53935" opacity="0.8"/>
+            <ellipse cx="130" cy="95" rx="15" ry="7" fill="#e53935" opacity="0.7"/>
+            <!-- Strawberry texture -->
+            <circle cx="148" cy="50" r="2" fill="#b71c1c" opacity="0.5"/>
+            <circle cx="155" cy="55" r="2" fill="#b71c1c" opacity="0.5"/>
+            <circle cx="143" cy="56" r="2" fill="#b71c1c" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="menu-info">
+          <h3>Cheesecake Fraise</h3>
+          <p>Cheesecake new-yorkais, coulis fraise fraîche, crumble beurré</p>
+          <div class="menu-footer"><span class="price">CHF 8.–</span><span class="see-more">Voir →</span></div>
+        </div>
+      </div>
+
+      <div class="menu-card" onclick="openArticle('donut')">
+        <div class="menu-img-wrap">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" class="card-svg">
+            <defs>
+              <radialGradient id="donutGrad" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f5cba7"/><stop offset="100%" stop-color="#e67e22"/></radialGradient>
+            </defs>
+            <ellipse cx="150" cy="205" rx="100" ry="12" fill="#e67e22" opacity="0.2"/>
+            <!-- Donut body -->
+            <ellipse cx="150" cy="120" rx="95" ry="60" fill="url(#donutGrad)"/>
+            <ellipse cx="150" cy="115" rx="95" ry="55" fill="#f0b27a"/>
+            <!-- Hole -->
+            <ellipse cx="150" cy="118" rx="35" ry="22" fill="#1a1612"/>
+            <!-- Pink glaze -->
+            <path d="M90,90 Q120,72 150,75 Q180,72 210,90 Q220,100 215,108 Q200,98 180,95 Q165,92 150,94 Q135,92 120,95 Q100,98 85,108 Q80,100 90,90Z" fill="#ff6b9d" opacity="0.9"/>
+            <!-- Sprinkles -->
+            <rect x="105" y="82" width="10" height="4" rx="2" fill="#ff5722" transform="rotate(-30,105,82)"/>
+            <rect x="130" y="75" width="10" height="4" rx="2" fill="#2196f3" transform="rotate(20,130,75)"/>
+            <rect x="155" y="78" width="10" height="4" rx="2" fill="#4caf50" transform="rotate(-15,155,78)"/>
+            <rect x="178" y="83" width="10" height="4" rx="2" fill="#ffd700" transform="rotate(25,178,83)"/>
+            <rect x="118" y="92" width="8" height="3" rx="1" fill="#9c27b0" transform="rotate(10,118,92)"/>
+            <rect x="170" y="90" width="8" height="3" rx="1" fill="#ff9800" transform="rotate(-20,170,90)"/>
+          </svg>
+        </div>
+        <div class="menu-info">
+          <h3>Donut Glazé</h3>
+          <p>Donut maison, glaçage rose, sprinkles colorés</p>
+          <div class="menu-footer"><span class="price">CHF 5.–</span><span class="see-more">Voir →</span></div>
         </div>
       </div>
     </div>
@@ -225,26 +715,14 @@
       <h2>Une <em>atmosphère</em> unique</h2>
     </div>
     <div class="gallery-grid">
-      <div class="g-item g1">
-        <div class="g-overlay"><span>The Classic Smash</span></div>
-      </div>
-      <div class="g-item g2">
-        <div class="g-overlay"><span>Cuisine ouverte</span></div>
-      </div>
-      <div class="g-item g3">
-        <div class="g-overlay"><span>Notre salle</span></div>
-      </div>
-      <div class="g-item g4">
-        <div class="g-overlay"><span>Frites maison</span></div>
-      </div>
-      <div class="g-item g5">
-        <div class="g-overlay"><span>Milkshakes</span></div>
-      </div>
-      <div class="g-item g6">
-        <div class="g-overlay"><span>Bar à bières</span></div>
-      </div>
+      <div class="g-item g1"><div class="g-overlay"><span>The Classic Smash</span></div></div>
+      <div class="g-item g2"><div class="g-overlay"><span>Cuisine ouverte</span></div></div>
+      <div class="g-item g3"><div class="g-overlay"><span>Notre salle — Morat</span></div></div>
+      <div class="g-item g4"><div class="g-overlay"><span>Frites maison</span></div></div>
+      <div class="g-item g5"><div class="g-overlay"><span>Milkshakes</span></div></div>
+      <div class="g-item g6"><div class="g-overlay"><span>Bar à bières</span></div></div>
     </div>
-    <p class="gallery-note">📸 Suivez-nous <a href="#">@smashandco.paris</a></p>
+    <p class="gallery-note">📸 Suivez-nous <a href="#">@smashyllz.morat</a></p>
   </section>
 
   <!-- RESERVATION -->
@@ -254,47 +732,30 @@
         <p class="label">Réservation</p>
         <h2>Réservez<br/><em>votre table</em></h2>
         <ul class="resa-infos">
-          <li>📍 18 rue de la Roquette, Paris 11e</li>
-          <li>🕐 Lun-Ven : 11h30 – 23h00</li>
-          <li>🕐 Sam-Dim : 11h00 – 23h30</li>
-          <li>📞 01 23 45 67 89</li>
+          <li>📍 Rue de Lausanne 12, 3280 Morat (Murten), Suisse</li>
+          <li>🕐 Lun–Ven : 11h30 – 23h00</li>
+          <li>🕐 Sam–Dim : 11h00 – 23h30</li>
+          <li>📞 +41 26 000 00 00</li>
         </ul>
       </div>
       <div class="resa-right">
         <form id="resaForm" onsubmit="submitResa(event)">
           <div class="form-row">
-            <div class="form-group">
-              <label>Prénom</label>
-              <input type="text" placeholder="Jean" required />
-            </div>
-            <div class="form-group">
-              <label>Nom</label>
-              <input type="text" placeholder="Dupont" required />
-            </div>
+            <div class="form-group"><label>Prénom</label><input type="text" placeholder="Jean" required /></div>
+            <div class="form-group"><label>Nom</label><input type="text" placeholder="Dupont" required /></div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" placeholder="jean@email.com" required />
-            </div>
-            <div class="form-group">
-              <label>Téléphone</label>
-              <input type="tel" placeholder="06 12 34 56 78" />
-            </div>
+            <div class="form-group"><label>Email</label><input type="email" placeholder="jean@email.com" required /></div>
+            <div class="form-group"><label>Téléphone</label><input type="tel" placeholder="+41 79 000 00 00" /></div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Date</label>
-              <input type="date" required />
-            </div>
+            <div class="form-group"><label>Date</label><input type="date" required /></div>
             <div class="form-group">
               <label>Heure</label>
               <select required>
                 <option value="">Choisir...</option>
-                <option>12:00</option><option>12:30</option>
-                <option>13:00</option><option>13:30</option>
-                <option>19:00</option><option>19:30</option>
-                <option>20:00</option><option>20:30</option>
+                <option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option>
+                <option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option>
                 <option>21:00</option><option>21:30</option>
               </select>
             </div>
@@ -316,7 +777,7 @@
         <div id="resaSuccess" class="resa-success hidden">
           <div class="success-icon">✓</div>
           <h3>Réservation confirmée !</h3>
-          <p>Vous recevrez un email de confirmation sous peu.<br/>À très vite chez Smash & Co !</p>
+          <p>Vous recevrez un email de confirmation sous peu.<br/>À très vite chez Smash YLLZ à Morat !</p>
         </div>
       </div>
     </div>
@@ -332,44 +793,30 @@
       <div class="contact-info">
         <div class="contact-item">
           <div class="contact-icon">📍</div>
-          <div>
-            <h4>Adresse</h4>
-            <p>18 rue de la Roquette<br/>75011 Paris</p>
-          </div>
+          <div><h4>Adresse</h4><p>Rue de Lausanne 12<br/>3280 Morat (Murten), Suisse</p></div>
         </div>
         <div class="contact-item">
           <div class="contact-icon">🕐</div>
-          <div>
-            <h4>Horaires</h4>
-            <p>Lun–Ven : 11h30 – 23h00<br/>Sam–Dim : 11h00 – 23h30</p>
-          </div>
+          <div><h4>Horaires</h4><p>Lun–Ven : 11h30 – 23h00<br/>Sam–Dim : 11h00 – 23h30</p></div>
         </div>
         <div class="contact-item">
           <div class="contact-icon">📞</div>
-          <div>
-            <h4>Téléphone</h4>
-            <p><a href="tel:0123456789">01 23 45 67 89</a></p>
-          </div>
+          <div><h4>Téléphone</h4><p><a href="tel:+41260000000">+41 26 000 00 00</a></p></div>
         </div>
         <div class="contact-item">
           <div class="contact-icon">📧</div>
-          <div>
-            <h4>Email</h4>
-            <p><a href="mailto:hello@smashandco.fr">hello@smashandco.fr</a></p>
-          </div>
+          <div><h4>Email</h4><p><a href="mailto:hello@smashyllz.ch">hello@smashyllz.ch</a></p></div>
         </div>
         <div class="social-links">
-          <a href="#">Instagram</a>
-          <a href="#">Facebook</a>
-          <a href="#">Google</a>
+          <a href="#">Instagram</a><a href="#">Facebook</a><a href="#">Google</a>
         </div>
       </div>
       <div class="map-placeholder">
         <div class="map-inner">
           <div class="map-pin">📍</div>
-          <p>SMASH & CO</p>
-          <small>18 rue de la Roquette, Paris 11e</small>
-          <a href="https://maps.google.com/?q=18+rue+de+la+Roquette+Paris" target="_blank" class="map-btn">Ouvrir dans Maps →</a>
+          <p>SMASH YLLZ</p>
+          <small>Rue de Lausanne 12, 3280 Morat</small>
+          <a href="https://maps.google.com/?q=Morat+Murten+Suisse" target="_blank" class="map-btn">Ouvrir dans Maps →</a>
         </div>
       </div>
     </div>
@@ -378,18 +825,16 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-top">
-      <div class="footer-logo">SMASH <span>&</span> CO</div>
-      <p>Le meilleur burger de Paris, fait avec amour.</p>
+      <div class="footer-logo">SMASH <span>YLLZ</span></div>
+      <p>Le meilleur burger de Morat, fait avec passion.</p>
     </div>
     <div class="footer-links">
-      <a href="#menu">Menu</a>
-      <a href="#gallery">Galerie</a>
-      <a href="#reservation">Réservation</a>
-      <a href="#contact">Contact</a>
+      <a href="#menu">Menu</a><a href="#gallery">Galerie</a>
+      <a href="#reservation">Réservation</a><a href="#contact">Contact</a>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 Smash & Co — Tous droits réservés</p>
-      <p>Fait avec ❤️ à Paris</p>
+      <p>© 2025 Smash YLLZ · Morat, Suisse</p>
+      <p>Fait avec ❤️ en Suisse 🇨🇭</p>
     </div>
   </footer>
 
