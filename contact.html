@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact & Horaires — Tila's Restaurant</title>
+  <meta name="description" content="Contactez Tila's Restaurant à La Chaux-de-Fonds. Horaires, adresse, téléphone et formulaire de contact.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .contact-hero {
+      background: linear-gradient(135deg, #1A1208, #2D1A06);
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+    }
+    .contact-hero h1 { color: #fff; font-size: clamp(2.5rem,6vw,4rem); }
+    .contact-hero h1 span { color: var(--gold); }
+    .contact-hero p { color: rgba(255,255,255,0.5); margin-top: 0.6rem; }
+
+    .contact-body { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem 5rem; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+
+    /* Info column */
+    .info-col h2 { font-size: 2rem; color: var(--dark); margin-bottom: 2rem; }
+    .contact-block {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      align-items: flex-start;
+    }
+    .cb-icon {
+      width: 48px; height: 48px;
+      background: var(--dark);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .cb-content h4 { font-weight: 700; color: var(--dark); margin-bottom: 0.3rem; font-family: 'Lato', sans-serif; font-size: 1rem; }
+    .cb-content p { color: var(--brown); font-size: 0.88rem; line-height: 1.7; }
+    .cb-content a { color: var(--gold); font-weight: 700; }
+    .cb-content a:hover { text-decoration: underline; }
+
+    /* Hours table */
+    .hours-card {
+      background: var(--dark);
+      border-radius: 14px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(201,168,76,0.1);
+    }
+    .hours-card h3 { color: var(--gold); font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; font-family: 'Lato', sans-serif; margin-bottom: 1.2rem; }
+    .hours-table { width: 100%; border-collapse: collapse; }
+    .hours-table tr { border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .hours-table tr:last-child { border: none; }
+    .hours-table td { padding: 0.7rem 0; font-size: 0.88rem; color: rgba(255,255,255,0.65); }
+    .hours-table td:first-child { font-weight: 700; color: rgba(255,255,255,0.85); width: 45%; }
+    .hours-table .closed { color: #ff6b6b !important; font-style: italic; }
+    .hours-note { color: var(--gold); font-size: 0.78rem; margin-top: 1rem; line-height: 1.6; }
+
+    /* Map */
+    .map-card {
+      background: var(--dark);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    .map-inner { height: 320px; position: relative; }
+
+    /* Delivery zone */
+    .delivery-card {
+      background: rgba(201,168,76,0.07);
+      border: 1.5px solid rgba(201,168,76,0.25);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .delivery-card h3 { color: var(--gold); font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; font-family: 'Lato', sans-serif; margin-bottom: 1rem; }
+    .delivery-info { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .di-item { font-size: 0.85rem; }
+    .di-item .di-label { color: var(--brown); font-size: 0.73rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .di-item .di-val { color: var(--dark); font-weight: 700; }
+
+    /* Contact form */
+    .contact-form-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 25px var(--shadow);
+    }
+    .contact-form-card h2 { font-size: 1.6rem; color: var(--dark); margin-bottom: 0.5rem; }
+    .contact-form-card .form-sub { color: var(--brown); font-size: 0.87rem; margin-bottom: 2rem; }
+    .cf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .cf-full { grid-column: 1 / -1; }
+    .cf-submit {
+      width: 100%;
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      padding: 1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+    .cf-submit:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.35); }
+
+    /* Social */
+    .social-strip {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--dark);
+      color: rgba(255,255,255,0.7);
+      padding: 0.7rem 1.2rem;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      transition: var(--transition);
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .cf-grid { grid-template-columns: 1fr; }
+      .delivery-info { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <div class="contact-hero">
+    <h1>Contact <span>&</span> Horaires</h1>
+    <p>Nous sommes à votre service · Rue de la Gare 2 · 2300 La Chaux-de-Fonds</p>
+  </div>
+
+  <div class="contact-body">
+    <div class="contact-grid">
+
+      <!-- LEFT : Info + Map -->
+      <div class="info-col">
+        <h2>Tila's Restaurant</h2>
+
+        <div class="contact-block">
+          <div class="cb-icon">📍</div>
+          <div class="cb-content">
+            <h4>Adresse</h4>
+            <p>Rue de la Gare 2<br>2300 La Chaux-de-Fonds, Suisse<br><a href="https://maps.google.com/?q=Rue+de+la+Gare+2+La+Chaux-de-Fonds" target="_blank">Voir sur Google Maps →</a><br><small style="color:var(--gold)">À 2 minutes à pied de la Gare CFF</small></p>
+          </div>
+        </div>
+
+        <div class="contact-block">
+          <div class="cb-icon">📞</div>
+          <div class="cb-content">
+            <h4>Téléphone & Email</h4>
+            <p><a href="tel:+41329250000">+41 32 925 00 00</a><br><a href="mailto:info@tilasrestaurant.ch">info@tilasrestaurant.ch</a><br><small style="color:var(--brown)">Réponse sous 24h en semaine</small></p>
+          </div>
+        </div>
+
+        <div class="hours-card">
+          <h3>🕐 Horaires d'ouverture</h3>
+          <table class="hours-table">
+            <tr><td>Lundi</td><td class="closed">Fermé</td></tr>
+            <tr><td>Mardi</td><td>11h30–14h00 · 18h00–22h30</td></tr>
+            <tr><td>Mercredi</td><td>11h30–14h00 · 18h00–22h30</td></tr>
+            <tr><td>Jeudi</td><td>11h30–14h00 · 18h00–22h30</td></tr>
+            <tr><td>Vendredi</td><td>11h30–14h00 · 18h00–23h00</td></tr>
+            <tr><td>Samedi</td><td>11h30–23h00 (non-stop)</td></tr>
+            <tr><td>Dimanche</td><td>11h30–22h00 (non-stop)</td></tr>
+          </table>
+          <p class="hours-note">☀️ Service midi (Lun–Ven) : 11h30–14h00 · Formules à partir de CHF 19.50<br>🎄 Horaires spéciaux les jours fériés — nous contacter</p>
+        </div>
+
+        <div class="delivery-card">
+          <h3>🚗 Livraison à domicile</h3>
+          <div class="delivery-info">
+            <div class="di-item"><div class="di-label">Zone</div><div class="di-val">La Chaux-de-Fonds</div></div>
+            <div class="di-item"><div class="di-label">Frais</div><div class="di-val">CHF 5.00</div></div>
+            <div class="di-item"><div class="di-label">Minimum</div><div class="di-val">CHF 25.00</div></div>
+            <div class="di-item"><div class="di-label">Délai estimé</div><div class="di-val">35–50 minutes</div></div>
+          </div>
+        </div>
+
+        <div class="map-card">
+          <div class="map-inner">
+            <svg viewBox="0 0 600 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+              <rect width="600" height="320" fill="#1A1208"/>
+              <!-- background texture -->
+              <rect width="600" height="320" fill="#1E140A" opacity="0.5"/>
+              <!-- Grid streets -->
+              <rect y="110" width="600" height="20" fill="#2D2010" rx="1"/>
+              <rect y="165" width="600" height="14" fill="#281C0C" rx="1"/>
+              <rect y="215" width="600" height="12" fill="#281C0C" rx="1"/>
+              <rect y="260" width="600" height="10" fill="#281C0C" rx="1"/>
+              <rect x="100" width="18" height="320" fill="#2D2010" rx="1"/>
+              <rect x="200" width="14" height="320" fill="#281C0C" rx="1"/>
+              <rect x="310" width="14" height="320" fill="#281C0C" rx="1"/>
+              <rect x="430" width="14" height="320" fill="#281C0C" rx="1"/>
+              <rect x="530" width="10" height="320" fill="#281C0C" rx="1"/>
+              <!-- Buildings blocks -->
+              <rect x="118" y="132" width="78" height="28" fill="#3D2810" rx="3"/>
+              <rect x="214" y="132" width="92" height="28" fill="#3D2810" rx="3"/>
+              <rect x="324" y="132" width="100" height="28" fill="#3D2810" rx="3"/>
+              <rect x="444" y="132" width="80" height="28" fill="#3D2810" rx="3"/>
+              <rect x="118" y="182" width="78" height="28" fill="#3D2810" rx="3"/>
+              <rect x="214" y="182" width="92" height="28" fill="#3D2810" rx="3"/>
+              <rect x="324" y="182" width="100" height="28" fill="#3D2810" rx="3"/>
+              <rect x="10" y="132" width="85" height="28" fill="#3D2810" rx="3"/>
+              <!-- Gare CFF -->
+              <rect x="108" y="68" width="120" height="38" fill="#4A2C0A" rx="5" stroke="#C9A84C" stroke-width="1.5"/>
+              <text x="168" y="82" font-size="9" fill="#C9A84C" text-anchor="middle" font-family="sans-serif" font-weight="bold">GARE CFF</text>
+              <text x="168" y="98" font-size="8" fill="rgba(201,168,76,0.6)" text-anchor="middle" font-family="sans-serif">La Chaux-de-Fonds</text>
+              <!-- Restaurant marker pin -->
+              <circle cx="175" cy="116" r="16" fill="#C9A84C"/>
+              <circle cx="175" cy="116" r="10" fill="#1A1208"/>
+              <circle cx="175" cy="116" r="4"  fill="#C9A84C"/>
+              <!-- Restaurant label -->
+              <rect x="95" y="138" width="90" height="26" fill="#C9A84C" rx="5"/>
+              <text x="140" y="155" font-size="9" fill="#1A1208" text-anchor="middle" font-family="sans-serif" font-weight="bold">Tila's Restaurant</text>
+              <!-- Street names -->
+              <text x="300" y="108" font-size="9" fill="rgba(201,168,76,0.7)" text-anchor="middle" font-family="sans-serif">Rue de la Gare</text>
+              <text x="300" y="162" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle" font-family="sans-serif">Rue du Parc</text>
+              <text x="300" y="212" font-size="8" fill="rgba(255,255,255,0.2)" text-anchor="middle" font-family="sans-serif">Avenue Léopold-Robert</text>
+              <text x="55" y="108" font-size="8" fill="rgba(255,255,255,0.2)" text-anchor="middle" font-family="sans-serif">Av. de la Gare</text>
+              <!-- Compass -->
+              <circle cx="562" cy="30" r="18" fill="rgba(201,168,76,0.1)" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+              <text x="562" y="25" font-size="9" fill="rgba(201,168,76,0.8)" text-anchor="middle" font-family="sans-serif" font-weight="bold">N</text>
+              <line x1="562" y1="28" x2="562" y2="15" stroke="rgba(201,168,76,0.7)" stroke-width="1.5" stroke-linecap="round"/>
+              <polygon points="562,13 559,20 565,20" fill="rgba(201,168,76,0.8)"/>
+              <!-- Scale bar -->
+              <line x1="20" y1="300" x2="120" y2="300" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+              <line x1="20" y1="296" x2="20" y2="304" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+              <line x1="120" y1="296" x2="120" y2="304" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+              <text x="70" y="295" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle" font-family="sans-serif">200m</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="social-strip">
+          <a href="#" class="social-btn">📘 Facebook</a>
+          <a href="#" class="social-btn">📸 Instagram</a>
+          <a href="#" class="social-btn">⭐ Google Avis</a>
+          <a href="#" class="social-btn">🌐 TripAdvisor</a>
+        </div>
+      </div>
+
+      <!-- RIGHT : Contact form -->
+      <div>
+        <div class="contact-form-card">
+          <h2>Envoyez-nous un message</h2>
+          <p class="form-sub">Pour toute question, demande de groupe ou événement privé — nous vous répondons sous 24h.</p>
+          <div class="cf-grid">
+            <div class="form-group">
+              <label>Prénom *</label>
+              <input type="text" id="cfFirst" placeholder="Marie">
+            </div>
+            <div class="form-group">
+              <label>Nom *</label>
+              <input type="text" id="cfLast" placeholder="Dupont">
+            </div>
+            <div class="form-group cf-full">
+              <label>Email *</label>
+              <input type="email" id="cfEmail" placeholder="marie@email.ch">
+            </div>
+            <div class="form-group cf-full">
+              <label>Téléphone</label>
+              <input type="tel" id="cfPhone" placeholder="+41 79 000 00 00">
+            </div>
+            <div class="form-group cf-full">
+              <label>Sujet *</label>
+              <select id="cfSubject">
+                <option value="">-- Choisir un sujet --</option>
+                <option>Réservation de groupe (8+ personnes)</option>
+                <option>Événement privé / Privatisation</option>
+                <option>Menu de mariage / Banquet</option>
+                <option>Demande de devis traiteur</option>
+                <option>Partenariat / Presse</option>
+                <option>Suggestion / Feedback</option>
+                <option>Autre demande</option>
+              </select>
+            </div>
+            <div class="form-group cf-full">
+              <label>Message *</label>
+              <textarea id="cfMessage" rows="5" placeholder="Décrivez votre demande en détail : date souhaitée, nombre de personnes, occasion spéciale, demandes particulières..."></textarea>
+            </div>
+            <div class="form-group cf-full" style="flex-direction:row;align-items:center;gap:0.7rem">
+              <input type="checkbox" id="cfConsent" style="width:18px;height:18px;flex-shrink:0;accent-color:var(--gold)">
+              <label for="cfConsent" style="font-size:0.78rem;color:var(--brown);text-transform:none;letter-spacing:0;cursor:pointer">J'accepte que mes données soient utilisées pour répondre à ma demande. <a href="#" style="color:var(--gold)">Politique de confidentialité</a></label>
+            </div>
+          </div>
+          <button class="cf-submit" onclick="submitContactForm()" style="margin-top:1.2rem">Envoyer le message ✉️</button>
+          <p style="text-align:center;font-size:0.75rem;color:var(--brown);margin-top:1rem">
+            Ou appelez-nous directement : <a href="tel:+41329250000" style="color:var(--gold);font-weight:700">+41 32 925 00 00</a>
+          </p>
+        </div>
+
+        <!-- FAQ rapide -->
+        <div style="margin-top:2rem;background:#fff;border-radius:16px;padding:2rem;box-shadow:0 4px 20px var(--shadow)">
+          <h3 style="font-size:1.3rem;color:var(--dark);margin-bottom:1.5rem">Questions fréquentes</h3>
+          <div id="faqList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    renderNav('contact');
+    renderFooter();
+
+    // FAQ
+    const FAQ = [
+      { q:"Acceptez-vous les animaux de compagnie ?", a:"Les animaux sont bienvenus en terrasse uniquement, selon la météo (mai–septembre)." },
+      { q:"Proposez-vous des menus végétariens / vegan ?", a:"Oui, plusieurs plats végétariens et vegan sont disponibles sur notre menu. Signalez vos préférences lors de la réservation." },
+      { q:"Peut-on privatiser la salle ?", a:"Oui, pour 20 à 80 personnes. Contactez-nous pour un devis personnalisé (menu sur mesure, décoration, etc.)." },
+      { q:"Y a-t-il un parking à proximité ?", a:"Un parking public se trouve à 3 minutes à pied, place de la Gare. Le parking de la gare CFF est également accessible." },
+      { q:"Acceptez-vous les cartes-cadeaux ?", a:"Oui, nous proposons des cartes-cadeaux à partir de CHF 50. Disponibles au restaurant ou par email." },
+    ];
+    let openFaq = null;
+    const faqList = document.getElementById('faqList');
+    faqList.innerHTML = FAQ.map((f, i) => `
+      <div style="border-bottom:1px solid var(--border);last-child:border-none">
+        <button onclick="toggleFaq(${i})" style="width:100%;text-align:left;background:none;border:none;padding:1rem 0;display:flex;justify-content:space-between;align-items:center;gap:1rem;cursor:pointer">
+          <span style="font-weight:700;font-size:0.9rem;color:var(--dark)">${f.q}</span>
+          <span id="faqIcon${i}" style="color:var(--gold);font-size:1.1rem;flex-shrink:0;transition:transform 0.25s">+</span>
+        </button>
+        <div id="faqAns${i}" style="display:none;padding:0 0 1rem;color:var(--brown);font-size:0.88rem;line-height:1.7">${f.a}</div>
+      </div>`).join('');
+
+    function toggleFaq(i) {
+      const ans = document.getElementById('faqAns' + i);
+      const icon = document.getElementById('faqIcon' + i);
+      if (openFaq !== null && openFaq !== i) {
+        document.getElementById('faqAns' + openFaq).style.display = 'none';
+        document.getElementById('faqIcon' + openFaq).textContent = '+';
+        document.getElementById('faqIcon' + openFaq).style.transform = 'rotate(0deg)';
+      }
+      const isOpen = ans.style.display === 'block';
+      ans.style.display = isOpen ? 'none' : 'block';
+      icon.textContent = isOpen ? '+' : '−';
+      icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(45deg)';
+      openFaq = isOpen ? null : i;
+    }
+
+    function submitContactForm() {
+      const fn = document.getElementById('cfFirst').value.trim();
+      const ln = document.getElementById('cfLast').value.trim();
+      const em = document.getElementById('cfEmail').value.trim();
+      const msg = document.getElementById('cfMessage').value.trim();
+      const consent = document.getElementById('cfConsent').checked;
+      if (!fn || !ln || !em || !msg) { showToast('⚠️ Veuillez remplir tous les champs obligatoires'); return; }
+      if (!em.includes('@')) { showToast('⚠️ Email invalide'); return; }
+      if (!consent) { showToast('⚠️ Veuillez accepter la politique de confidentialité'); return; }
+      showToast(`✅ Message envoyé ! Nous vous répondrons bientôt à ${em}`);
+      document.getElementById('cfFirst').value = '';
+      document.getElementById('cfLast').value = '';
+      document.getElementById('cfEmail').value = '';
+      document.getElementById('cfPhone').value = '';
+      document.getElementById('cfMessage').value = '';
+      document.getElementById('cfConsent').checked = false;
+    }
+  </script>
+</body>
+</html>

@@ -1,89 +1,99 @@
-# 🍔 Smash & Co — Site Web Restaurant
+# 🍽️ Tila's Restaurant — Site Web Officiel
 
-Site web complet pour restaurant burger, prêt à déployer sur **GitHub Pages**.
+Site web complet pour **Tila's Restaurant**, situé Rue de la Gare 2, 2300 La Chaux-de-Fonds, Suisse.
 
 ## 📁 Structure des fichiers
 
 ```
-restaurant-burger/
-├── index.html       ← Page principale
-├── style.css        ← Tous les styles
-├── script.js        ← Interactivité
-└── README.md        ← Ce fichier
+tilas-restaurant/
+├── index.html          ← Page d'accueil
+├── menu.html           ← Menu complet (entrées, plats, desserts, boissons, midi)
+├── reservation.html    ← Réservation de table (plan de salle interactif)
+├── commander.html      ← Commande en ligne + livraison + panier complet
+├── contact.html        ← Contact, horaires, carte, formulaire + FAQ
+├── css/
+│   └── style.css       ← Feuille de style globale partagée
+└── js/
+    ├── data.js          ← Données menu, tables, fonctions panier (localStorage)
+    └── nav.js           ← Navigation et footer partagés
 ```
 
-## 🚀 Déploiement sur GitHub Pages (étape par étape)
+## 🚀 Déployer sur GitHub Pages
 
-### 1. Créer un compte GitHub
-Rendez-vous sur [github.com](https://github.com) et créez un compte gratuit.
+1. **Créez un dépôt GitHub** (ex: `tilas-restaurant`)
+2. **Uploadez tous les fichiers** en conservant exactement la structure ci-dessus
+3. Dans les **Settings** du dépôt → **Pages** → Source : `main` / `root`
+4. Votre site sera accessible à : `https://votre-username.github.io/tilas-restaurant/`
 
-### 2. Créer un nouveau dépôt
-- Cliquez sur le bouton **"New"** (ou **"+"** en haut à droite)
-- Nommez-le `restaurant-burger` (ou le nom de votre choix)
-- Choisissez **Public**
-- Cliquez **"Create repository"**
+## ✅ Fonctionnalités incluses
 
-### 3. Uploader les fichiers
-- Dans votre nouveau dépôt, cliquez sur **"uploading an existing file"**
-- Glissez-déposez les 3 fichiers : `index.html`, `style.css`, `script.js`
-- Cliquez **"Commit changes"**
+| Page | Fonctionnalités |
+|------|----------------|
+| **Accueil** | Hero animé, spécialités, avis clients, section about, CTA |
+| **Menu** | 42 plats en 5 catégories, tags, prix CHF, ajout au panier |
+| **Réservation** | Plan de salle 28 tables, formulaire complet, modal confirmation |
+| **Commander** | Menu complet, panier localStorage, checkout 4 étapes |
+| **Checkout** | Adresse livraison, 4 modes de paiement (CB/TWINT/Espèces/PostFinance) |
+| **Confirmation** | Numéro de commande, récapitulatif, email simulé |
+| **Contact** | Carte SVG, horaires, formulaire, FAQ accordéon |
 
-### 4. Activer GitHub Pages
-- Allez dans **Settings** (onglet en haut du dépôt)
-- Dans le menu gauche, cliquez **"Pages"**
-- Sous *"Source"*, sélectionnez **"Deploy from a branch"**
-- Choisissez la branche **"main"** et le dossier **"/ (root)"**
-- Cliquez **"Save"**
+## 🛒 Système de panier
 
-### 5. Votre site est en ligne ! 🎉
-Après 1-2 minutes, votre site sera accessible à :
+Le panier est persisté dans `localStorage` — il survit à la navigation entre les pages.
+
+## 📧 Envoi d'emails (à configurer)
+
+Pour l'envoi réel d'emails de confirmation, intégrez un service comme :
+- **Formspree** (gratuit) : remplacez le `submitContactForm()` dans `contact.html`
+- **EmailJS** : fonctionne 100% côté front-end, pas besoin de backend
+- **Netlify Forms** si vous déployez sur Netlify
+
+### Exemple avec EmailJS (commandes) :
+```html
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  emailjs.init("VOTRE_USER_ID");
+  // Dans confirmOrder() :
+  emailjs.send("service_id", "template_id", {
+    to_email: deliveryData.email,
+    order_num: refNum,
+    total: total
+  });
+</script>
 ```
-https://VOTRE-USERNAME.github.io/restaurant-burger/
-```
 
----
+## 🎨 Personnalisation
 
-## ✏️ Personnaliser le contenu
-
-### Changer le nom du restaurant
-Dans `index.html`, remplacez **"SMASH & CO"** par le vrai nom.
-
-### Changer l'adresse et les horaires
-Cherchez `18 rue de la Roquette` et `Paris 11e` dans `index.html` et remplacez.
-
-### Changer les prix du menu
-Cherchez `14€`, `17€`, etc. dans `index.html` et mettez vos vrais prix.
-
-### Changer les couleurs
-Dans `style.css`, modifiez les variables CSS au début du fichier :
+### Modifier les couleurs (css/style.css) :
 ```css
 :root {
-  --accent: #e8522a;    /* Couleur principale (orange-rouge) */
-  --accent2: #f5a623;   /* Couleur secondaire (jaune) */
-  --bg: #0e0c0a;        /* Fond principal */
+  --gold: #C9A84C;   /* Couleur dorée principale */
+  --dark: #1A1208;   /* Fond sombre */
+  --cream: #FFF8EE;  /* Fond clair */
 }
 ```
 
-### Ajouter de vraies photos
-Remplacez les emojis dans `.g1`, `.g2`... par des vraies images :
-```html
-<!-- Dans index.html, remplacez la div g-item par : -->
-<div class="g-item g1" style="background-image: url('photo1.jpg'); background-size: cover;"></div>
+### Ajouter/modifier des plats (js/data.js) :
+```js
+{ id:43, name:"Nom du plat", emoji:"🍲", price:24.50, 
+  desc:"Description du plat", tags:["Popular"] }
 ```
 
-### Connecter le formulaire à un vrai service
-Pour recevoir les réservations par email, utilisez **Formspree** (gratuit) :
-1. Créez un compte sur [formspree.io](https://formspree.io)
-2. Créez un formulaire et copiez l'action
-3. Dans `index.html`, ajoutez `action="https://formspree.io/f/VOTRE_ID"` à la balise `<form>`
-4. Supprimez `onsubmit="submitResa(event)"` de la balise `<form>`
+### Modifier les infos du restaurant :
+- **Adresse, téléphone** : chercher et remplacer dans tous les fichiers
+- **Horaires** : `contact.html` et `reservation.html`
+- **Tables** : tableau `TABLE_DATA` dans `js/data.js`
+
+## 📞 Informations par défaut
+
+| Info | Valeur |
+|------|--------|
+| Adresse | Rue de la Gare 2, 2300 La Chaux-de-Fonds |
+| Téléphone | +41 32 925 00 00 |
+| Email | info@tilasrestaurant.ch |
+| Horaires | Mar–Ven 11h30–22h30 · Sam 11h30–23h · Dim 11h30–22h · Lun fermé |
+| Livraison | CHF 5.00 · Min CHF 25.00 · 35–50 min |
+| Tables | 28 tables (T1–T28) |
 
 ---
-
-## 📱 Le site est responsive
-Il s'adapte automatiquement aux mobiles, tablettes et ordinateurs.
-
-## 🎨 Technologies utilisées
-- HTML5 / CSS3 / JavaScript vanilla
-- Google Fonts (Bebas Neue, DM Sans, Playfair Display)
-- Aucune dépendance externe (pas de framework)
+*Site créé avec HTML5, CSS3 et JavaScript vanilla — aucune dépendance externe requise*
