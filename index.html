@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SMASH & CO — Burgers Artisanaux</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-logo">SMASH <span>&</span> CO</div>
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#gallery">Galerie</a></li>
+      <li><a href="#reservation">Réserver</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-cta" onclick="document.getElementById('reservation').scrollIntoView({behavior:'smooth'})">Réserver une table</button>
+    <button class="burger-btn" id="burgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#menu" onclick="closeMobile()">Menu</a></li>
+      <li><a href="#gallery" onclick="closeMobile()">Galerie</a></li>
+      <li><a href="#reservation" onclick="closeMobile()">Réserver</a></li>
+      <li><a href="#contact" onclick="closeMobile()">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-tag">Ouvert 7j/7 · Paris 11e</p>
+      <h1>Le burger<br/><em>qui change tout.</em></h1>
+      <p class="hero-sub">Viande smashée, fromages fondus, sauces maison.<br/>Une obsession artisanale depuis 2019.</p>
+      <div class="hero-btns">
+        <button onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Voir la carte</button>
+        <button class="outline" onclick="document.getElementById('reservation').scrollIntoView({behavior:'smooth'})">Réserver</button>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <span>★ 4.9</span>
+      <small>+2000 avis</small>
+    </div>
+    <div class="scroll-hint">↓</div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="strip">
+    <span>🔥 Smash Burger</span>
+    <span>🧀 Double Cheese</span>
+    <span>🥓 Bacon Crispy</span>
+    <span>🌿 Veggie Option</span>
+    <span>🍟 Frites Maison</span>
+    <span>🍺 Bières Artisanales</span>
+    <span>🔥 Smash Burger</span>
+    <span>🧀 Double Cheese</span>
+    <span>🥓 Bacon Crispy</span>
+    <span>🌿 Veggie Option</span>
+    <span>🍟 Frites Maison</span>
+    <span>🍺 Bières Artisanales</span>
+  </div>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="section-header">
+      <p class="label">Notre carte</p>
+      <h2>Les <em>incontournables</em></h2>
+    </div>
+
+    <div class="menu-tabs">
+      <button class="tab active" data-tab="burgers">Burgers</button>
+      <button class="tab" data-tab="sides">À côté</button>
+      <button class="tab" data-tab="drinks">Boissons</button>
+    </div>
+
+    <div class="menu-grid" id="burgers">
+      <div class="menu-card featured">
+        <div class="badge">Best-seller</div>
+        <div class="menu-img">🍔</div>
+        <div class="menu-info">
+          <h3>The Classic Smash</h3>
+          <p>Double smash patty, cheddar fondu, salade, cornichons, sauce secrète</p>
+          <div class="menu-footer">
+            <span class="price">14€</span>
+            <span class="tags"><span>Signature</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img">🥩</div>
+        <div class="menu-info">
+          <h3>Smoke & Fire</h3>
+          <p>Triple patty, bacon fumé, oignons caramélisés, sauce BBQ maison</p>
+          <div class="menu-footer">
+            <span class="price">17€</span>
+            <span class="tags"><span>Intense</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img">🧀</div>
+        <div class="menu-info">
+          <h3>The Cheesy</h3>
+          <p>Quatre fromages, oignons frits, moutarde à l'ancienne, pain brioché</p>
+          <div class="menu-footer">
+            <span class="price">15€</span>
+            <span class="tags"><span>Gourmand</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img">🌿</div>
+        <div class="menu-info">
+          <h3>Green Smash</h3>
+          <p>Galette de pois chiches, avocat, roquette, tomates cerises, mayo végane</p>
+          <div class="menu-footer">
+            <span class="price">13€</span>
+            <span class="tags"><span>Végé</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img">🌶️</div>
+        <div class="menu-info">
+          <h3>Hot Mess</h3>
+          <p>Patty épicé, jalapeños, sauce sriracha, pickles maison, fromage pepper jack</p>
+          <div class="menu-footer">
+            <span class="price">15€</span>
+            <span class="tags"><span>Piquant 🔥</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img">🍄</div>
+        <div class="menu-info">
+          <h3>Truffle Royale</h3>
+          <p>Patty wagyu, champignons sautés, truffe noire, comté 18 mois, mayo truffe</p>
+          <div class="menu-footer">
+            <span class="price">22€</span>
+            <span class="tags"><span>Premium</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-grid hidden" id="sides">
+      <div class="menu-card">
+        <div class="menu-img">🍟</div>
+        <div class="menu-info">
+          <h3>Frites Maison</h3>
+          <p>Pommes de terre fraîches, double friture, sel de Guérande</p>
+          <div class="menu-footer"><span class="price">5€</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img">🧅</div>
+        <div class="menu-info">
+          <h3>Onion Rings</h3>
+          <p>Oignons croustillants, sauce ranch maison</p>
+          <div class="menu-footer"><span class="price">6€</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img">🥗</div>
+        <div class="menu-info">
+          <h3>Coleslaw</h3>
+          <p>Chou, carotte, mayonnaise légère, ciboulette</p>
+          <div class="menu-footer"><span class="price">4€</span></div>
+        </div>
+      </div>
+      <div class="menu-card featured">
+        <div class="badge">Nouveau</div>
+        <div class="menu-img">🍠</div>
+        <div class="menu-info">
+          <h3>Sweet Fries</h3>
+          <p>Frites de patate douce, sauce miel-sriracha</p>
+          <div class="menu-footer"><span class="price">6€</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-grid hidden" id="drinks">
+      <div class="menu-card">
+        <div class="menu-img">🍺</div>
+        <div class="menu-info">
+          <h3>Bières Artisanales</h3>
+          <p>Sélection de 6 bières locales en rotation mensuelle</p>
+          <div class="menu-footer"><span class="price">6-8€</span></div>
+        </div>
+      </div>
+      <div class="menu-card featured">
+        <div class="badge">Maison</div>
+        <div class="menu-img">🥤</div>
+        <div class="menu-info">
+          <h3>Milkshakes</h3>
+          <p>Vanille, chocolat, caramel beurre salé — faits à la commande</p>
+          <div class="menu-footer"><span class="price">7€</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img">🧃</div>
+        <div class="menu-info">
+          <h3>Softs & Jus</h3>
+          <p>Eau, sodas, jus de fruits frais pressés</p>
+          <div class="menu-footer"><span class="price">3-5€</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="section-header">
+      <p class="label">Ambiance & saveurs</p>
+      <h2>Une <em>atmosphère</em> unique</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="g-item g1">
+        <div class="g-overlay"><span>The Classic Smash</span></div>
+      </div>
+      <div class="g-item g2">
+        <div class="g-overlay"><span>Cuisine ouverte</span></div>
+      </div>
+      <div class="g-item g3">
+        <div class="g-overlay"><span>Notre salle</span></div>
+      </div>
+      <div class="g-item g4">
+        <div class="g-overlay"><span>Frites maison</span></div>
+      </div>
+      <div class="g-item g5">
+        <div class="g-overlay"><span>Milkshakes</span></div>
+      </div>
+      <div class="g-item g6">
+        <div class="g-overlay"><span>Bar à bières</span></div>
+      </div>
+    </div>
+    <p class="gallery-note">📸 Suivez-nous <a href="#">@smashandco.paris</a></p>
+  </section>
+
+  <!-- RESERVATION -->
+  <section id="reservation">
+    <div class="resa-wrapper">
+      <div class="resa-left">
+        <p class="label">Réservation</p>
+        <h2>Réservez<br/><em>votre table</em></h2>
+        <ul class="resa-infos">
+          <li>📍 18 rue de la Roquette, Paris 11e</li>
+          <li>🕐 Lun-Ven : 11h30 – 23h00</li>
+          <li>🕐 Sam-Dim : 11h00 – 23h30</li>
+          <li>📞 01 23 45 67 89</li>
+        </ul>
+      </div>
+      <div class="resa-right">
+        <form id="resaForm" onsubmit="submitResa(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Prénom</label>
+              <input type="text" placeholder="Jean" required />
+            </div>
+            <div class="form-group">
+              <label>Nom</label>
+              <input type="text" placeholder="Dupont" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="jean@email.com" required />
+            </div>
+            <div class="form-group">
+              <label>Téléphone</label>
+              <input type="tel" placeholder="06 12 34 56 78" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date</label>
+              <input type="date" required />
+            </div>
+            <div class="form-group">
+              <label>Heure</label>
+              <select required>
+                <option value="">Choisir...</option>
+                <option>12:00</option><option>12:30</option>
+                <option>13:00</option><option>13:30</option>
+                <option>19:00</option><option>19:30</option>
+                <option>20:00</option><option>20:30</option>
+                <option>21:00</option><option>21:30</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Nombre de personnes</label>
+            <div class="counter">
+              <button type="button" onclick="changeCount(-1)">−</button>
+              <span id="guestCount">2</span>
+              <button type="button" onclick="changeCount(1)">+</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Message (optionnel)</label>
+            <textarea placeholder="Allergie, événement spécial..."></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Confirmer la réservation →</button>
+        </form>
+        <div id="resaSuccess" class="resa-success hidden">
+          <div class="success-icon">✓</div>
+          <h3>Réservation confirmée !</h3>
+          <p>Vous recevrez un email de confirmation sous peu.<br/>À très vite chez Smash & Co !</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header">
+      <p class="label">Nous trouver</p>
+      <h2>Venez nous <em>rendre visite</em></h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <h4>Adresse</h4>
+            <p>18 rue de la Roquette<br/>75011 Paris</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <h4>Horaires</h4>
+            <p>Lun–Ven : 11h30 – 23h00<br/>Sam–Dim : 11h00 – 23h30</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <h4>Téléphone</h4>
+            <p><a href="tel:0123456789">01 23 45 67 89</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div>
+            <h4>Email</h4>
+            <p><a href="mailto:hello@smashandco.fr">hello@smashandco.fr</a></p>
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">Google</a>
+        </div>
+      </div>
+      <div class="map-placeholder">
+        <div class="map-inner">
+          <div class="map-pin">📍</div>
+          <p>SMASH & CO</p>
+          <small>18 rue de la Roquette, Paris 11e</small>
+          <a href="https://maps.google.com/?q=18+rue+de+la+Roquette+Paris" target="_blank" class="map-btn">Ouvrir dans Maps →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-logo">SMASH <span>&</span> CO</div>
+      <p>Le meilleur burger de Paris, fait avec amour.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#menu">Menu</a>
+      <a href="#gallery">Galerie</a>
+      <a href="#reservation">Réservation</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Smash & Co — Tous droits réservés</p>
+      <p>Fait avec ❤️ à Paris</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
