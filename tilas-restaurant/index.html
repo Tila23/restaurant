@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tila's Restaurant — La Chaux-de-Fonds</title>
+  <meta name="description" content="Restaurant français et international à La Chaux-de-Fonds, près de la gare CFF. Réservation en ligne, commande à livraison.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ---- HERO ---- */
+    .hero {
+      background: linear-gradient(135deg, #1A1208 0%, #2D1A06 55%, #4A2C0A 100%);
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C9A84C' fill-opacity='0.035'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h2l-2 2V0zm0 4l4-4h2l-6 6V4zm0 4l8-8h2L40 10V8zm0 4L52 0h2L40 14v-2zm0 4L56 0h2L40 18v-2zm0 4L60 0h2L40 22v-2zm0 4L64 0h2L40 26v-2zm0 4L68 0h2L40 30v-2zm0 4L72 0h2L40 34v-2zm0 4L76 0h2L40 38v-2zm0 4L80 0v2L42 40h-2zm4 0L80 4v2L46 40h-2zm4 0L80 8v2L50 40h-2zm4 0l28-28v2L54 40h-2zm4 0l24-24v2L58 40h-2zm4 0l20-20v2L62 40h-2zm4 0l16-16v2L66 40h-2zm4 0l12-12v2L70 40h-2zm4 0l8-8v2l-6 6h-2zm4 0l4-4v2l-2 2h-2z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-ring {
+      position: absolute;
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 50%;
+      animation: rotate-slow 30s linear infinite;
+    }
+    @keyframes rotate-slow { to { transform: rotate(360deg); } }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      padding: 2rem;
+      animation: fadeUp 1s ease both;
+    }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:none; } }
+    .hero-badge {
+      display: inline-block;
+      color: var(--gold);
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 0.5rem 1.5rem;
+      border-radius: 30px;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+    .hero-title {
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      color: #fff;
+      font-weight: 900;
+      line-height: 0.95;
+      margin-bottom: 1rem;
+      animation: fadeUp 1s 0.35s ease both;
+    }
+    .hero-title .gold { color: var(--gold); }
+    .hero-subtitle {
+      color: rgba(255,255,255,0.65);
+      font-size: 1.05rem;
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+      animation: fadeUp 1s 0.5s ease both;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 2.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 1s 0.65s ease both;
+    }
+    .hero-meta-item { text-align: center; }
+    .hero-meta-item .m-icon { font-size: 1.3rem; display: block; margin-bottom: 0.3rem; }
+    .hero-meta-item .m-label { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); display: block; }
+    .hero-meta-item .m-val { font-size: 0.85rem; color: rgba(255,255,255,0.75); }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: fadeUp 1s 0.8s ease both; }
+
+    /* ---- ABOUT ---- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-img-wrap {
+      background: var(--dark);
+      border-radius: 16px;
+      height: 450px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    .stat-box {
+      background: var(--dark);
+      border-radius: 10px;
+      padding: 1.3rem;
+      text-align: center;
+    }
+    .stat-box .s-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); font-weight: 700; }
+    .stat-box .s-lbl { font-size: 0.7rem; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; margin-top: 0.2rem; }
+
+    /* ---- SPECIALS ---- */
+    .specials-section { background: var(--dark); padding: 5rem 2rem; }
+    .specials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .special-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .special-card:hover { transform: translateY(-6px); border-color: rgba(201,168,76,0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.35); }
+    .special-img { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 4.5rem; background: rgba(201,168,76,0.06); }
+    .special-body { padding: 1.5rem; }
+    .special-name { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .special-desc { color: rgba(255,255,255,0.45); font-size: 0.82rem; line-height: 1.6; margin-bottom: 1rem; }
+    .special-footer { display: flex; align-items: center; justify-content: space-between; }
+    .special-price { color: var(--gold); font-weight: 700; font-size: 1.1rem; }
+
+    /* ---- TESTIMONIALS ---- */
+    .testimonials { padding: 5rem 2rem; background: #fff; }
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .testi-card { background: var(--cream); border-radius: 14px; padding: 1.8rem; border: 1px solid var(--border); }
+    .testi-stars { color: var(--gold); font-size: 1rem; margin-bottom: 0.8rem; letter-spacing: 2px; }
+    .testi-text { font-style: italic; color: #555; line-height: 1.7; margin-bottom: 1rem; font-size: 0.9rem; }
+    .testi-author { display: flex; align-items: center; gap: 0.8rem; }
+    .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--dark); display: flex; align-items: center; justify-content: center; color: var(--gold); font-weight: 700; font-size: 0.85rem; }
+    .testi-name { font-weight: 700; font-size: 0.9rem; color: var(--dark); }
+    .testi-date { font-size: 0.75rem; color: var(--brown); }
+
+    /* ---- CTA ---- */
+    .cta-section {
+      background: var(--gold);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .cta-section h2 { font-size: 2.2rem; color: var(--dark); margin-bottom: 0.8rem; }
+    .cta-section p { color: rgba(26,18,8,0.7); margin-bottom: 2rem; font-size: 1rem; }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-dark-cta { background: var(--dark); color: #fff; padding: 0.9rem 2rem; border-radius: 3px; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; text-decoration: none; transition: var(--transition); }
+    .btn-dark-cta:hover { background: #2D1A06; transform: translateY(-2px); }
+    .btn-outline-dark { background: transparent; color: var(--dark); border: 2px solid var(--dark); padding: 0.9rem 2rem; border-radius: 3px; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; text-decoration: none; transition: var(--transition); }
+    .btn-outline-dark:hover { background: var(--dark); color: #fff; }
+
+    @media (max-width: 800px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-img-wrap { height: 280px; }
+      .about-stats { grid-template-columns: repeat(3,1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-ring" style="width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+    <div class="hero-ring" style="width:900px;height:900px;top:50%;left:50%;transform:translate(-50%,-50%) rotate(45deg);animation-duration:50s"></div>
+    <div class="hero-content">
+      <span class="hero-badge">✦ Cuisine Française & Internationale ✦</span>
+      <h1 class="hero-title">Tila's<br><span class="gold">Restaurant</span></h1>
+      <p class="hero-subtitle">Une expérience gastronomique unique au cœur de La Chaux-de-Fonds.<br>Saveurs authentiques, ambiance chaleureuse, produits locaux.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="m-icon">📍</span>
+          <span class="m-label">Adresse</span>
+          <span class="m-val">Gare CFF, La Chaux-de-Fonds</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="m-icon">🕐</span>
+          <span class="m-label">Horaires</span>
+          <span class="m-val">Mar–Dim · 11h30–22h30</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="m-icon">📞</span>
+          <span class="m-label">Réservation</span>
+          <span class="m-val">+41 32 925 00 00</span>
+        </div>
+      </div>
+      <div class="hero-btns">
+        <a href="reservation.html" class="btn btn-gold">Réserver une table</a>
+        <a href="menu.html" class="btn btn-outline-white">Voir le menu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES STRIP -->
+  <div class="features-strip">
+    <div class="feature-item"><span class="f-icon">🚗</span><div><div class="f-title">Livraison à domicile</div><div class="f-sub">La Chaux-de-Fonds · CHF 5.00</div></div></div>
+    <div class="feature-item"><span class="f-icon">📱</span><div><div class="f-title">Commande en ligne</div><div class="f-sub">Simple & rapide</div></div></div>
+    <div class="feature-item"><span class="f-icon">🍷</span><div><div class="f-title">Vins AOC Neuchâtel</div><div class="f-sub">Sélection locale</div></div></div>
+    <div class="feature-item"><span class="f-icon">🌿</span><div><div class="f-title">Produits locaux</div><div class="f-sub">Producteurs NE</div></div></div>
+    <div class="feature-item"><span class="f-icon">⭐</span><div><div class="f-title">Note 4.8/5</div><div class="f-sub">+340 avis Google</div></div></div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-img-wrap">
+          <svg viewBox="0 0 480 450" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <!-- fond décoratif animé -->
+            <defs>
+              <radialGradient id="grd" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#4A2C0A"/>
+                <stop offset="100%" stop-color="#1A1208"/>
+              </radialGradient>
+            </defs>
+            <rect width="480" height="450" fill="url(#grd)"/>
+            <!-- motif géométrique -->
+            <circle cx="240" cy="225" r="180" fill="none" stroke="#C9A84C" stroke-width="0.5" stroke-dasharray="12 6" opacity="0.2"/>
+            <circle cx="240" cy="225" r="140" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.15"/>
+            <!-- assiette principale -->
+            <circle cx="240" cy="225" r="120" fill="#2D1A06"/>
+            <circle cx="240" cy="225" r="105" fill="#3D2210"/>
+            <circle cx="240" cy="225" r="90"  fill="#FFF8EE" opacity="0.92"/>
+            <!-- dôme cloche -->
+            <ellipse cx="240" cy="200" rx="60" ry="15" fill="#C9A84C" opacity="0.2"/>
+            <!-- plat -->
+            <ellipse cx="240" cy="230" rx="55" ry="35" fill="#C9A84C" opacity="0.65"/>
+            <ellipse cx="220" cy="220" rx="16" ry="13" fill="#4A7C59"/>
+            <ellipse cx="255" cy="218" rx="15" ry="12" fill="#8B1A1A" opacity="0.85"/>
+            <rect x="234" y="200" width="14" height="45" rx="4" fill="#8B5E3C"/>
+            <!-- couverts gauche (fourchette) -->
+            <line x1="162" y1="175" x2="162" y2="275" stroke="#9E9E9E" stroke-width="3.5" stroke-linecap="round"/>
+            <line x1="154" y1="180" x2="154" y2="210" stroke="#9E9E9E" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="170" y1="180" x2="170" y2="210" stroke="#9E9E9E" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- couverts droite (couteau) -->
+            <line x1="318" y1="175" x2="318" y2="275" stroke="#BDBDBD" stroke-width="3.5" stroke-linecap="round"/>
+            <rect x="313" y="175" width="10" height="32" rx="3" fill="#BDBDBD"/>
+            <!-- éléments décoratifs -->
+            <text x="240" y="355" font-size="11" fill="#C9A84C" text-anchor="middle" font-family="'Playfair Display',serif" opacity="0.8">✦ TILA'S RESTAURANT ✦</text>
+            <!-- étoiles décoratives coins -->
+            <text x="60"  y="80"  font-size="22" fill="#C9A84C" opacity="0.25">✦</text>
+            <text x="395" y="90"  font-size="16" fill="#C9A84C" opacity="0.2">✦</text>
+            <text x="390" y="385" font-size="18" fill="#C9A84C" opacity="0.22">✦</text>
+            <text x="55"  y="395" font-size="14" fill="#C9A84C" opacity="0.18">✦</text>
+          </svg>
+        </div>
+        <div>
+          <span class="section-tag">Notre histoire</span>
+          <h2 class="section-title" style="margin-bottom:1.5rem">Une passion pour<br>la bonne cuisine</h2>
+          <p style="color:var(--brown);line-height:1.9;margin-bottom:1rem">Fondé en 2018 par Tila Martins, notre restaurant est né d'une passion profonde pour les saveurs authentiques et le plaisir du partage. Situé à deux pas de la gare CFF de La Chaux-de-Fonds, nous accueillons voyageurs et habitants dans une atmosphère chaleureuse et raffinée.</p>
+          <p style="color:var(--brown);line-height:1.9;margin-bottom:1rem">Notre chef propose une cuisine française revisitée avec des influences internationales, en privilégiant les producteurs locaux du canton de Neuchâtel et les meilleurs ingrédients de saison.</p>
+          <p style="color:var(--brown);line-height:1.9">Chaque assiette est une invitation au voyage, chaque repas une expérience unique à partager.</p>
+          <div class="about-stats">
+            <div class="stat-box"><div class="s-num">28</div><div class="s-lbl">Tables</div></div>
+            <div class="stat-box"><div class="s-num">6+</div><div class="s-lbl">Années</div></div>
+            <div class="stat-box"><div class="s-num">4.8★</div><div class="s-lbl">Google</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALS -->
+  <section class="specials-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Nos spécialités</span>
+        <h2 class="section-title" style="color:#fff">Les incontournables</h2>
+        <p style="color:rgba(255,255,255,0.45);margin-top:0.8rem">Nos plats emblématiques, préparés avec amour chaque jour</p>
+      </div>
+      <div class="specials-grid">
+        <div class="special-card">
+          <div class="special-img">🥩</div>
+          <div class="special-body">
+            <h3 class="special-name">Entrecôte Tila's</h3>
+            <p class="special-desc">Entrecôte bœuf suisse 250g, sauce bordelaise maison, pommes duchesse et légumes de saison.</p>
+            <div class="special-footer">
+              <span class="special-price">CHF 42.00</span>
+              <a href="commander.html" class="btn btn-gold" style="padding:0.5rem 1.2rem;font-size:0.75rem">Commander</a>
+            </div>
+          </div>
+        </div>
+        <div class="special-card">
+          <div class="special-img">🐟</div>
+          <div class="special-body">
+            <h3 class="special-name">Filet de perche du lac</h3>
+            <p class="special-desc">Filets dorés de perche des lacs suisses, beurre blanc citronné, riz et légumes vapeur.</p>
+            <div class="special-footer">
+              <span class="special-price">CHF 34.00</span>
+              <a href="commander.html" class="btn btn-gold" style="padding:0.5rem 1.2rem;font-size:0.75rem">Commander</a>
+            </div>
+          </div>
+        </div>
+        <div class="special-card">
+          <div class="special-img">🍫</div>
+          <div class="special-body">
+            <h3 class="special-name">Fondant au chocolat</h3>
+            <p class="special-desc">Mi-cuit Valrhona 70%, glace vanille Bourbon maison, coulis de framboise fraîche.</p>
+            <div class="special-footer">
+              <span class="special-price">CHF 12.50</span>
+              <a href="commander.html" class="btn btn-gold" style="padding:0.5rem 1.2rem;font-size:0.75rem">Commander</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:2.5rem">
+        <a href="menu.html" class="btn btn-outline-white">Voir le menu complet</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Avis clients</span>
+        <h2 class="section-title">Ce que disent nos hôtes</h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">« Une expérience gastronomique exceptionnelle. L'entrecôte était parfaitement cuite et la sauce bordelaise, un vrai régal. Le service est aux petits soins. »</p>
+          <div class="testi-author">
+            <div class="testi-avatar">JM</div>
+            <div><div class="testi-name">Jean-Marc V.</div><div class="testi-date">Février 2026 · Google</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">« Idéalement situé près de la gare, parfait avant de prendre le train. Menu du midi excellent rapport qualité-prix. Je recommande vivement la crème brûlée ! »</p>
+          <div class="testi-author">
+            <div class="testi-avatar">SL</div>
+            <div><div class="testi-name">Sophie L.</div><div class="testi-date">Janvier 2026 · TripAdvisor</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★½</div>
+          <p class="testi-text">« Livraison rapide et plats arrivés bien chauds. Le burger Tila's est incroyable. On commande régulièrement depuis la maison. Application super facile. »</p>
+          <div class="testi-author">
+            <div class="testi-avatar">RP</div>
+            <div><div class="testi-name">Romain P.</div><div class="testi-date">Mars 2026 · Google</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Prêt à vivre l'expérience Tila's ?</h2>
+      <p>Réservez votre table ou commandez directement depuis chez vous</p>
+      <div class="cta-btns">
+        <a href="reservation.html" class="btn-dark-cta">Réserver une table</a>
+        <a href="commander.html" class="btn-outline-dark">Commander en ligne</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    renderNav('home');
+    renderFooter();
+  </script>
+</body>
+</html>

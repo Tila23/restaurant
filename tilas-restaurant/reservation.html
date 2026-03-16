@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réservation — Tila's Restaurant</title>
+  <meta name="description" content="Réservez votre table en ligne chez Tila's Restaurant à La Chaux-de-Fonds. Confirmation rapide.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .res-hero {
+      background: linear-gradient(135deg, #1A1208, #2D1A06);
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+    }
+    .res-hero h1 { color: #fff; font-size: clamp(2.5rem,6vw,4rem); }
+    .res-hero h1 span { color: var(--gold); }
+    .res-hero p { color: rgba(255,255,255,0.5); margin-top: 0.6rem; }
+
+    .res-body { max-width: 950px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    /* Info strip */
+    .res-info-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .res-info-card {
+      background: var(--dark);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(201,168,76,0.1);
+    }
+    .res-info-card .r-icon { font-size: 1.6rem; display: block; margin-bottom: 0.7rem; }
+    .res-info-card h3 { color: var(--gold); font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; font-family: 'Lato', sans-serif; margin-bottom: 0.5rem; }
+    .res-info-card p { color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.6; }
+
+    /* Floor plan */
+    .floor-section {
+      background: var(--dark);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .floor-section h3 { color: var(--gold); font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; text-align: center; margin-bottom: 1.5rem; font-family: 'Lato', sans-serif; }
+    .floor-plan {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.6rem;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .table-cell {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      transition: var(--transition);
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      user-select: none;
+    }
+    .table-cell.available {
+      background: rgba(201,168,76,0.12);
+      color: var(--gold);
+      border-color: rgba(201,168,76,0.25);
+    }
+    .table-cell.available:hover { background: var(--gold); color: var(--dark); }
+    .table-cell.occupied { background: rgba(178,34,34,0.12); color: #ff6b6b; border-color: rgba(178,34,34,0.25); cursor: not-allowed; }
+    .table-cell.selected { background: var(--gold); color: var(--dark); border-color: var(--gold-light); }
+    .table-cell .t-seats { font-size: 0.6rem; opacity: 0.7; margin-top: 2px; }
+    .floor-legend { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
+    .floor-legend span { display: flex; align-items: center; gap: 0.4rem; color: rgba(255,255,255,0.5); font-size: 0.78rem; }
+    .floor-legend span::before { content: ''; width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+    .leg-avail::before { background: rgba(201,168,76,0.5); }
+    .leg-occ::before { background: rgba(178,34,34,0.5); }
+    .leg-sel::before { background: var(--gold); }
+    #selectedInfo { text-align: center; color: var(--gold); font-size: 0.85rem; margin-top: 0.8rem; min-height: 1.2rem; }
+
+    /* Form */
+    .form-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 25px var(--shadow);
+    }
+    .form-card h2 { font-size: 1.6rem; color: var(--dark); margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid var(--gold); }
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; }
+    .span2 { grid-column: 1 / -1; }
+    .submit-res {
+      width: 100%;
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      padding: 1.1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-top: 1.5rem;
+      transition: var(--transition);
+    }
+    .submit-res:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.4); }
+
+    /* Success modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 5000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+    .modal-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .modal-box h2 { font-size: 1.8rem; color: var(--dark); margin-bottom: 0.8rem; }
+    .modal-box p { color: var(--brown); line-height: 1.7; font-size: 0.92rem; margin-bottom: 0.5rem; }
+    .modal-details { background: var(--cream); border-radius: 10px; padding: 1.2rem; margin: 1.5rem 0; text-align: left; }
+    .modal-row { display: flex; gap: 0.8rem; margin-bottom: 0.6rem; font-size: 0.87rem; }
+    .modal-row .ml { color: var(--brown); min-width: 80px; }
+    .modal-row .mv { color: var(--dark); font-weight: 700; }
+    .modal-close { background: var(--gold); color: var(--dark); border: none; padding: 0.9rem 2.5rem; border-radius: 10px; font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; transition: var(--transition); }
+    .modal-close:hover { background: var(--gold-light); }
+
+    @media (max-width: 700px) {
+      .form-grid-2, .form-grid-3 { grid-template-columns: 1fr; }
+      .floor-plan { grid-template-columns: repeat(5, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <div class="res-hero">
+    <h1>Réserver <span>une table</span></h1>
+    <p>Confirmation par email · Réservation gratuite · Annulation jusqu'à 2h avant</p>
+  </div>
+
+  <div class="res-body">
+    <div class="res-info-strip">
+      <div class="res-info-card">
+        <span class="r-icon">🕐</span>
+        <h3>Horaires</h3>
+        <p>Mar–Ven : 11h30–14h · 18h–22h30<br>Sam : 11h30–23h<br>Dim : 11h30–22h<br><strong style="color:#B22222">Lundi : Fermé</strong></p>
+      </div>
+      <div class="res-info-card">
+        <span class="r-icon">🪑</span>
+        <h3>Salle</h3>
+        <p>28 tables disponibles<br>De 1 à 12 personnes<br>Terrasse en été (8 tables)<br>Salle privatisable</p>
+      </div>
+      <div class="res-info-card">
+        <span class="r-icon">🎂</span>
+        <h3>Occasions</h3>
+        <p>Anniversaires<br>Repas d'affaires<br>Célébrations<br>Menus groupes sur devis</p>
+      </div>
+      <div class="res-info-card">
+        <span class="r-icon">📞</span>
+        <h3>Contact</h3>
+        <p><a href="tel:+41329250000" style="color:var(--gold)">+41 32 925 00 00</a><br>info@tilasrestaurant.ch<br>Rue de la Gare 2<br>2300 La Chaux-de-Fonds</p>
+      </div>
+    </div>
+
+    <div class="floor-section">
+      <h3>Plan de salle — Cliquez pour sélectionner votre table</h3>
+      <div class="floor-plan" id="floorPlan"></div>
+      <div class="floor-legend">
+        <span class="leg-avail">Disponible</span>
+        <span class="leg-occ">Occupée</span>
+        <span class="leg-sel">Sélectionnée</span>
+      </div>
+      <div id="selectedInfo"></div>
+    </div>
+
+    <div class="form-card">
+      <h2>Vos coordonnées</h2>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label>Prénom *</label>
+          <input type="text" id="rFirstname" placeholder="Marie" required>
+        </div>
+        <div class="form-group">
+          <label>Nom *</label>
+          <input type="text" id="rLastname" placeholder="Dupont" required>
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="rEmail" placeholder="marie@email.ch" required>
+        </div>
+        <div class="form-group">
+          <label>Téléphone</label>
+          <input type="tel" id="rPhone" placeholder="+41 79 000 00 00">
+        </div>
+        <div class="form-group">
+          <label>Date *</label>
+          <input type="date" id="rDate" required>
+        </div>
+        <div class="form-group">
+          <label>Heure *</label>
+          <select id="rTime" required>
+            <option value="">-- Choisir une heure --</option>
+            <option>11h30</option><option>12h00</option><option>12h30</option><option>13h00</option>
+            <option>18h00</option><option>18h30</option><option>19h00</option><option>19h30</option>
+            <option>20h00</option><option>20h30</option><option>21h00</option><option>21h30</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nombre de personnes *</label>
+          <select id="rGuests" required>
+            <option value="1">1 personne</option>
+            <option value="2" selected>2 personnes</option>
+            <option value="3">3 personnes</option>
+            <option value="4">4 personnes</option>
+            <option value="5-6">5–6 personnes</option>
+            <option value="7-8">7–8 personnes</option>
+            <option value="9-12">9–12 personnes</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Occasion spéciale</label>
+          <select id="rOccasion">
+            <option value="">-- Aucune --</option>
+            <option>Anniversaire 🎂</option>
+            <option>Romantique 💑</option>
+            <option>Repas d'affaires 💼</option>
+            <option>Réunion de famille 👨‍👩‍👧</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group span2">
+          <label>Demandes spéciales / Allergies alimentaires</label>
+          <textarea id="rNotes" placeholder="Ex : allergie aux noix, chaise haute pour enfant, surprise d'anniversaire, régime végétarien..."></textarea>
+        </div>
+      </div>
+      <button class="submit-res" onclick="submitReservation()">✦ Confirmer la réservation</button>
+      <p style="text-align:center;font-size:0.75rem;color:var(--brown);margin-top:1rem">
+        🔒 Vos données sont protégées · Confirmation par email sous quelques minutes
+      </p>
+    </div>
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div class="modal-overlay" id="resModal">
+    <div class="modal-box">
+      <div class="modal-icon">🎉</div>
+      <h2>Réservation confirmée !</h2>
+      <p>Merci <strong id="mName"></strong>, votre table est réservée chez <strong>Tila's Restaurant</strong>.</p>
+      <p>Un email de confirmation a été envoyé à <strong id="mEmail"></strong>.</p>
+      <div class="modal-details" id="mDetails"></div>
+      <p style="font-size:0.8rem;color:var(--brown)">Pour modifier ou annuler : <a href="tel:+41329250000" style="color:var(--gold)">+41 32 925 00 00</a></p>
+      <br>
+      <button class="modal-close" onclick="closeModal()">Parfait, merci !</button>
+    </div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    renderNav('reservation');
+    renderFooter();
+
+    // Set min date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('rDate').min = today;
+    document.getElementById('rDate').value = today;
+
+    let selectedTable = null;
+
+    function renderFloorPlan() {
+      const fp = document.getElementById('floorPlan');
+      fp.innerHTML = TABLE_DATA.map((t, i) => `
+        <div class="table-cell ${t.occ ? 'occupied' : selectedTable === i ? 'selected' : 'available'}"
+          onclick="${t.occ ? '' : `selectTable(${i})`}"
+          title="${t.occ ? 'Table occupée' : `${t.n} — ${t.seats} places`}">
+          <span>${t.n}</span>
+          <span class="t-seats">${t.seats}p</span>
+        </div>`).join('');
+    }
+
+    function selectTable(i) {
+      selectedTable = i;
+      renderFloorPlan();
+      const t = TABLE_DATA[i];
+      document.getElementById('selectedInfo').textContent = `✅ Table ${t.n} sélectionnée — ${t.seats} places`;
+    }
+
+    function submitReservation() {
+      const fn = document.getElementById('rFirstname').value.trim();
+      const ln = document.getElementById('rLastname').value.trim();
+      const em = document.getElementById('rEmail').value.trim();
+      const dt = document.getElementById('rDate').value;
+      const ti = document.getElementById('rTime').value;
+      const gn = document.getElementById('rGuests').value;
+      const oc = document.getElementById('rOccasion').value;
+
+      if (!fn || !ln || !em || !dt || !ti) {
+        showToast('⚠️ Veuillez remplir tous les champs obligatoires (*)');
+        return;
+      }
+      if (!em.includes('@') || !em.includes('.')) {
+        showToast('⚠️ Adresse email invalide');
+        return;
+      }
+
+      const tableInfo = selectedTable !== null
+        ? `Table ${TABLE_DATA[selectedTable].n} (${TABLE_DATA[selectedTable].seats} places)`
+        : 'Attribution automatique';
+
+      // Format date
+      const dateObj = new Date(dt);
+      const dateFormatted = dateObj.toLocaleDateString('fr-CH', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+
+      // Show modal
+      document.getElementById('mName').textContent = fn + ' ' + ln;
+      document.getElementById('mEmail').textContent = em;
+      const refNum = 'RES-' + Date.now().toString().slice(-6);
+      document.getElementById('mDetails').innerHTML = `
+        <div class="modal-row"><span class="ml">📅 Date</span><span class="mv">${dateFormatted}</span></div>
+        <div class="modal-row"><span class="ml">🕐 Heure</span><span class="mv">${ti}</span></div>
+        <div class="modal-row"><span class="ml">👥 Personnes</span><span class="mv">${gn}</span></div>
+        <div class="modal-row"><span class="ml">🪑 Table</span><span class="mv">${tableInfo}</span></div>
+        ${oc ? `<div class="modal-row"><span class="ml">🎊 Occasion</span><span class="mv">${oc}</span></div>` : ''}
+        <div class="modal-row"><span class="ml">🔖 Ref.</span><span class="mv">${refNum}</span></div>
+      `;
+      document.getElementById('resModal').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('resModal').classList.remove('open');
+      showToast('📧 Email de confirmation envoyé !');
+    }
+
+    renderFloorPlan();
+  </script>
+</body>
+</html>

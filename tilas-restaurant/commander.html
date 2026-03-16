@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commander en ligne — Tila's Restaurant</title>
+  <meta name="description" content="Commandez en ligne chez Tila's Restaurant. Livraison à La Chaux-de-Fonds. Paiement sécurisé.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .order-hero {
+      background: linear-gradient(135deg, #1A1208, #2D1A06);
+      padding: 3.5rem 2rem 2rem;
+      text-align: center;
+    }
+    .order-hero h1 { color: #fff; font-size: clamp(2rem,5vw,3.2rem); }
+    .order-hero h1 span { color: var(--gold); }
+    .order-hero p { color: rgba(255,255,255,0.5); margin-top: 0.5rem; font-size: 0.88rem; }
+
+    /* Layout */
+    .order-layout {
+      display: grid;
+      grid-template-columns: 1fr 370px;
+      gap: 2rem;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 2rem;
+      align-items: start;
+    }
+    .order-sidebar {
+      position: sticky;
+      top: 90px;
+    }
+
+    /* Category tabs */
+    .order-cat-tabs {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .ocat-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--brown);
+      padding: 0.45rem 1rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: var(--transition);
+    }
+    .ocat-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .ocat-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+
+    /* Items list */
+    .order-items-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .order-item-row {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 2px 10px var(--shadow);
+      transition: var(--transition);
+    }
+    .order-item-row:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.11); }
+    .oi-emoji {
+      font-size: 2.3rem;
+      width: 58px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f0e8;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .oi-info { flex: 1; min-width: 0; }
+    .oi-name { font-weight: 700; color: var(--dark); font-size: 0.93rem; margin-bottom: 0.2rem; }
+    .oi-desc { color: var(--brown); font-size: 0.77rem; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .oi-price { color: var(--gold); font-weight: 700; font-size: 1rem; white-space: nowrap; flex-shrink: 0; }
+    .oi-add-btn {
+      background: var(--dark);
+      color: #fff;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+    .oi-add-btn:hover { background: var(--gold); color: var(--dark); transform: scale(1.1); }
+
+    /* Cart panel */
+    .cart-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.1);
+      border: 1.5px solid var(--border);
+    }
+    .cart-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--dark);
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid var(--gold);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-clear { background: none; border: none; color: var(--brown); font-size: 0.75rem; cursor: pointer; letter-spacing: 1px; }
+    .cart-clear:hover { color: var(--red); }
+    .cart-empty-state { text-align: center; padding: 2rem 0; color: var(--brown); }
+    .cart-empty-state .e-icon { font-size: 3rem; margin-bottom: 0.8rem; display: block; }
+    .cart-items { max-height: 320px; overflow-y: auto; margin-bottom: 1rem; padding-right: 4px; }
+    .cart-items::-webkit-scrollbar { width: 4px; }
+    .cart-items::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    .ci-row {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid #f5f0e8;
+    }
+    .ci-emoji { font-size: 1.2rem; flex-shrink: 0; }
+    .ci-name { flex: 1; font-size: 0.83rem; font-weight: 600; color: var(--dark); line-height: 1.3; }
+    .ci-qty-wrap { display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
+    .ci-qty-btn {
+      background: none;
+      border: 1px solid var(--border);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      color: var(--dark);
+    }
+    .ci-qty-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+    .ci-qty { font-weight: 700; min-width: 18px; text-align: center; font-size: 0.85rem; }
+    .ci-subtotal { font-size: 0.83rem; font-weight: 700; color: var(--gold); white-space: nowrap; }
+
+    .cart-summary { border-top: 2px solid var(--dark); padding-top: 0.9rem; }
+    .cs-row { display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.35rem; color: var(--brown); }
+    .cs-row.total { color: var(--dark); font-weight: 700; font-size: 1.05rem; margin-top: 0.4rem; padding-top: 0.4rem; border-top: 1px solid var(--border); }
+    .cs-note { font-size: 0.75rem; color: var(--brown); background: #f5f0e8; padding: 0.5rem 0.8rem; border-radius: 8px; margin-top: 0.8rem; line-height: 1.5; }
+    .checkout-main-btn {
+      width: 100%;
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      padding: 1rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-top: 1rem;
+      transition: var(--transition);
+    }
+    .checkout-main-btn:hover:not(:disabled) { background: var(--gold-light); transform: translateY(-1px); }
+    .checkout-main-btn:disabled { background: #ddd; color: #999; cursor: not-allowed; transform: none; }
+
+    /* =====================
+       CHECKOUT MODAL
+    ===================== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 5000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .checkout-modal {
+      background: var(--cream);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 620px;
+      max-height: 92vh;
+      overflow-y: auto;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    }
+    .cmo-header {
+      background: var(--dark);
+      padding: 1.4rem 2rem;
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cmo-header h2 { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.2rem; }
+    .cmo-close { background: none; border: none; color: rgba(255,255,255,0.6); font-size: 1.4rem; line-height: 1; transition: var(--transition); }
+    .cmo-close:hover { color: #fff; }
+    .cmo-body { padding: 2rem; }
+
+    /* Steps indicator */
+    .steps-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      gap: 0;
+    }
+    .step-item { display: flex; align-items: center; }
+    .step-num {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+    .step-num.done { background: var(--gold); color: var(--dark); }
+    .step-num.active { background: var(--dark); color: #fff; border: 2px solid var(--gold); }
+    .step-num.pending { background: #e0d5c5; color: var(--brown); }
+    .step-connector { width: 55px; height: 2px; background: #e0d5c5; transition: var(--transition); }
+    .step-connector.done { background: var(--gold); }
+
+    /* Step panels */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+    .step-panel h3 { font-size: 1.3rem; color: var(--dark); margin-bottom: 1.5rem; }
+
+    /* Step 1 — summary */
+    .summary-list { background: #fff; border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; }
+    .sl-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f5f0e8; font-size: 0.88rem; }
+    .sl-item:last-child { border: none; }
+    .sl-total { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.05rem; padding-top: 0.7rem; border-top: 2px solid var(--dark); margin-top: 0.3rem; }
+
+    /* Step 2 — delivery */
+    .addr-form { display: flex; flex-direction: column; gap: 1rem; }
+    .addr-row { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; }
+    .addr-row-3 { display: grid; grid-template-columns: 1fr 2fr; gap: 1rem; }
+
+    /* Step 3 — payment */
+    .pay-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1.2rem; }
+    .pay-opt {
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .pay-opt:hover { border-color: var(--gold); }
+    .pay-opt.active { border-color: var(--gold); background: rgba(201,168,76,0.07); }
+    .pay-opt .p-icon { font-size: 1.8rem; display: block; margin-bottom: 0.4rem; }
+    .pay-opt .p-name { font-weight: 700; font-size: 0.88rem; color: var(--dark); }
+    .pay-opt .p-sub { font-size: 0.72rem; color: var(--brown); }
+    .card-fields { display: flex; flex-direction: column; gap: 0.8rem; }
+    .card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .ssl-note { background: #f0f8f0; border-radius: 8px; padding: 0.8rem 1rem; font-size: 0.8rem; color: #2e7d32; display: flex; gap: 0.5rem; align-items: center; margin-top: 0.8rem; }
+
+    /* Step 4 — confirm */
+    .confirm-wrap { text-align: center; padding: 1rem 0; }
+    .confirm-check { width: 80px; height: 80px; background: rgba(201,168,76,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 1.5rem; }
+    .confirm-wrap h3 { font-size: 1.6rem; color: var(--dark); margin-bottom: 0.5rem; }
+    .confirm-wrap p { color: var(--brown); line-height: 1.7; font-size: 0.9rem; }
+    .confirm-details {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.2rem;
+      margin: 1.5rem 0;
+      text-align: left;
+    }
+    .cd-row { display: flex; gap: 0.8rem; margin-bottom: 0.7rem; font-size: 0.86rem; }
+    .cd-row .cdl { color: var(--brown); flex-shrink: 0; }
+    .cd-row .cdv { color: var(--dark); font-weight: 700; }
+
+    /* Step nav buttons */
+    .step-btns { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .btn-back {
+      flex: 1;
+      background: none;
+      border: 1.5px solid var(--dark);
+      color: var(--dark);
+      padding: 0.9rem;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: var(--transition);
+    }
+    .btn-back:hover { background: var(--dark); color: #fff; }
+    .btn-next {
+      flex: 2;
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      padding: 0.9rem;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+    .btn-next:hover { background: var(--gold-light); }
+
+    @media (max-width: 900px) {
+      .order-layout { grid-template-columns: 1fr; }
+      .order-sidebar { position: static; }
+    }
+    @media (max-width: 500px) {
+      .pay-grid { grid-template-columns: 1fr 1fr; }
+      .addr-row, .addr-row-3, .card-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <div class="order-hero">
+    <h1>Commander <span>en ligne</span></h1>
+    <p>Livraison à La Chaux-de-Fonds · Commande min. CHF 25.00 · Frais de livraison CHF 5.00 · Délai estimé 35–50 min</p>
+  </div>
+
+  <div class="order-layout">
+    <!-- LEFT: Menu -->
+    <div>
+      <div class="order-cat-tabs" id="catTabs"></div>
+      <div class="order-items-list" id="orderItems"></div>
+    </div>
+
+    <!-- RIGHT: Cart -->
+    <div class="order-sidebar">
+      <div class="cart-box">
+        <div class="cart-title">
+          🛒 Votre panier
+          <button class="cart-clear" onclick="clearCart(); renderCart()">Vider</button>
+        </div>
+        <div id="cartContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="checkout-modal">
+      <div class="cmo-header">
+        <h2>Finaliser la commande</h2>
+        <button class="cmo-close" onclick="closeCheckout()">✕</button>
+      </div>
+      <div class="cmo-body">
+        <div class="steps-bar" id="stepsBar"></div>
+        <div id="stepContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    renderNav('order');
+    renderFooter();
+
+    let currentCat = 'entrees';
+    let checkoutStep = 1;
+    let selectedPay = 'card';
+    let deliveryData = {};
+
+    // ---- Category tabs ----
+    function renderCatTabs() {
+      document.getElementById('catTabs').innerHTML = Object.entries(CATEGORY_LABELS).map(([k,v]) =>
+        `<button class="ocat-btn ${k===currentCat?'active':''}" onclick="switchCat('${k}', this)">${v}</button>`
+      ).join('');
+    }
+
+    function switchCat(cat, btn) {
+      currentCat = cat;
+      document.querySelectorAll('.ocat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderOrderItems();
+    }
+
+    function renderOrderItems() {
+      const items = MENU_DATA[currentCat] || [];
+      document.getElementById('orderItems').innerHTML = items.map(item => `
+        <div class="order-item-row">
+          <div class="oi-emoji">${item.emoji}</div>
+          <div class="oi-info">
+            <div class="oi-name">${item.name}</div>
+            <div class="oi-desc">${item.desc}</div>
+          </div>
+          <div class="oi-price">CHF ${item.price.toFixed(2)}</div>
+          <button class="oi-add-btn" title="Ajouter au panier"
+            onclick='addToCart(${JSON.stringify({id:item.id,name:item.name,price:item.price,emoji:item.emoji})})'>+</button>
+        </div>`).join('');
+    }
+
+    // Override addToCart to also re-render cart on this page
+    const _origAdd = addToCart;
+    function addToCart(item) {
+      const cart = getCart();
+      const ex = cart.find(c => c.id === item.id);
+      if (ex) ex.qty++;
+      else cart.push({ ...item, qty: 1 });
+      saveCart(cart);
+      updateAllCartBadges();
+      showToast(`✅ ${item.name} ajouté au panier`);
+      renderCart();
+    }
+
+    // ---- Cart rendering ----
+    function renderCart() {
+      const cart = getCart();
+      const cont = document.getElementById('cartContent');
+      if (!cart.length) {
+        cont.innerHTML = `<div class="cart-empty-state"><span class="e-icon">🛒</span><p>Votre panier est vide</p><p style="font-size:0.8rem;margin-top:0.4rem">Sélectionnez vos plats à gauche</p></div>`;
+        return;
+      }
+      const subtotal = getCartTotal();
+      const delivery = 5.00;
+      const total = subtotal + delivery;
+      const minOk = subtotal >= 25;
+
+      cont.innerHTML = `
+        <div class="cart-items">
+          ${cart.map(item => `
+            <div class="ci-row">
+              <span class="ci-emoji">${item.emoji}</span>
+              <span class="ci-name">${item.name}</span>
+              <div class="ci-qty-wrap">
+                <button class="ci-qty-btn" onclick="updateQty(${item.id},-1)">−</button>
+                <span class="ci-qty">${item.qty}</span>
+                <button class="ci-qty-btn" onclick="updateQty(${item.id},1)">+</button>
+              </div>
+              <span class="ci-subtotal">CHF ${(item.price*item.qty).toFixed(2)}</span>
+            </div>`).join('')}
+        </div>
+        <div class="cart-summary">
+          <div class="cs-row"><span>Sous-total</span><span>CHF ${subtotal.toFixed(2)}</span></div>
+          <div class="cs-row"><span>Livraison</span><span>CHF ${delivery.toFixed(2)}</span></div>
+          <div class="cs-row total"><span>Total</span><span>CHF ${total.toFixed(2)}</span></div>
+        </div>
+        ${!minOk ? `<div class="cs-note">⚠️ Minimum de commande CHF 25.00 — il manque CHF ${(25-subtotal).toFixed(2)}</div>` : ''}
+        <button class="checkout-main-btn" onclick="openCheckout()" ${!minOk?'disabled':''}>
+          ${minOk ? 'Passer la commande →' : `Minimum CHF 25.00`}
+        </button>`;
+    }
+
+    // Override updateQty to re-render
+    function updateQty(id, delta) {
+      const cart = getCart();
+      const item = cart.find(c => c.id === id);
+      if (!item) return;
+      item.qty += delta;
+      const newCart = item.qty <= 0 ? cart.filter(c => c.id !== id) : cart;
+      saveCart(newCart);
+      updateAllCartBadges();
+      renderCart();
+    }
+
+    // ---- CHECKOUT ----
+    function openCheckout() {
+      checkoutStep = 1;
+      selectedPay = 'card';
+      document.getElementById('checkoutModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      renderCheckout();
+    }
+    function closeCheckout() {
+      document.getElementById('checkoutModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function renderCheckout() {
+      const labels = ['Résumé', 'Livraison', 'Paiement', 'Confirmation'];
+      // Steps bar
+      document.getElementById('stepsBar').innerHTML = labels.map((l, i) => {
+        const n = i + 1;
+        const cls = n < checkoutStep ? 'done' : n === checkoutStep ? 'active' : 'pending';
+        return `
+          ${i > 0 ? `<div class="step-connector ${i < checkoutStep ? 'done':''}"></div>` : ''}
+          <div class="step-item">
+            <div class="step-num ${cls}" title="${l}">${n < checkoutStep ? '✓' : n}</div>
+          </div>`;
+      }).join('');
+
+      const cart = getCart();
+      const subtotal = getCartTotal();
+      const delivery = 5.00;
+      const total = subtotal + delivery;
+
+      const panels = {
+        1: `
+          <div class="step-panel active">
+            <h3>Récapitulatif</h3>
+            <div class="summary-list">
+              ${cart.map(i => `<div class="sl-item"><span>${i.emoji} ${i.name} ×${i.qty}</span><span>CHF ${(i.price*i.qty).toFixed(2)}</span></div>`).join('')}
+              <div class="sl-item" style="color:var(--brown)"><span>Livraison</span><span>CHF ${delivery.toFixed(2)}</span></div>
+              <div class="sl-total"><span>Total à payer</span><span>CHF ${total.toFixed(2)}</span></div>
+            </div>
+            <div class="step-btns">
+              <button class="btn-next" onclick="nextStep()">Continuer — Adresse de livraison →</button>
+            </div>
+          </div>`,
+        2: `
+          <div class="step-panel active">
+            <h3>Adresse de livraison</h3>
+            <div class="addr-form">
+              <div class="form-group"><label>Nom complet *</label><input class="field-input" id="dName" placeholder="Marie Dupont" value="${deliveryData.name||''}"></div>
+              <div class="form-group"><label>Téléphone *</label><input class="field-input" id="dPhone" placeholder="+41 79 000 00 00" type="tel" value="${deliveryData.phone||''}"></div>
+              <div class="addr-row">
+                <div class="form-group"><label>Rue *</label><input class="field-input" id="dStreet" placeholder="Rue de la Serre" value="${deliveryData.street||''}"></div>
+                <div class="form-group"><label>Numéro *</label><input class="field-input" id="dNum" placeholder="15" value="${deliveryData.num||''}"></div>
+              </div>
+              <div class="addr-row-3">
+                <div class="form-group"><label>NPA *</label><input class="field-input" id="dNpa" value="2300" readonly style="background:#f5f5f5"></div>
+                <div class="form-group"><label>Ville *</label><input class="field-input" id="dCity" value="La Chaux-de-Fonds" readonly style="background:#f5f5f5"></div>
+              </div>
+              <div class="form-group"><label>Email (confirmation) *</label><input class="field-input" id="dEmail" type="email" placeholder="marie@email.ch" value="${deliveryData.email||''}"></div>
+              <div class="form-group"><label>Instructions de livraison</label><input class="field-input" id="dNote" placeholder="Ex : code entrée 1234, 3ème étage, sonner chez Dupont..." value="${deliveryData.note||''}"></div>
+            </div>
+            <div class="step-btns">
+              <button class="btn-back" onclick="prevStep()">← Retour</button>
+              <button class="btn-next" onclick="validateDelivery()">Continuer — Paiement →</button>
+            </div>
+          </div>`,
+        3: `
+          <div class="step-panel active">
+            <h3>Mode de paiement</h3>
+            <div class="pay-grid">
+              <div class="pay-opt ${selectedPay==='card'?'active':''}" onclick="choosePay('card')">
+                <span class="p-icon">💳</span><div class="p-name">Carte bancaire</div><div class="p-sub">Visa · MC · Amex</div>
+              </div>
+              <div class="pay-opt ${selectedPay==='twint'?'active':''}" onclick="choosePay('twint')">
+                <span class="p-icon">📱</span><div class="p-name">TWINT</div><div class="p-sub">Paiement mobile CH</div>
+              </div>
+              <div class="pay-opt ${selectedPay==='cash'?'active':''}" onclick="choosePay('cash')">
+                <span class="p-icon">💵</span><div class="p-name">Espèces</div><div class="p-sub">Paiement à la livraison</div>
+              </div>
+              <div class="pay-opt ${selectedPay==='post'?'active':''}" onclick="choosePay('post')">
+                <span class="p-icon">🏦</span><div class="p-name">PostFinance</div><div class="p-sub">E-Finance</div>
+              </div>
+            </div>
+            ${selectedPay === 'card' ? `
+            <div class="card-fields">
+              <div class="form-group"><label>Numéro de carte</label>
+                <input class="field-input" placeholder="1234 5678 9012 3456" maxlength="19"
+                  oninput="let v=this.value.replace(/\D/g,'').slice(0,16);this.value=v.replace(/(.{4})/g,'$1 ').trim()">
+              </div>
+              <div class="card-row">
+                <div class="form-group"><label>Expiration</label><input class="field-input" placeholder="MM/AA" maxlength="5" oninput="if(this.value.length===2&&!this.value.includes('/'))this.value+='/'"></div>
+                <div class="form-group"><label>CVV</label><input class="field-input" placeholder="•••" maxlength="3" type="password"></div>
+              </div>
+              <div class="form-group"><label>Titulaire de la carte</label><input class="field-input" placeholder="MARIE DUPONT"></div>
+            </div>` : selectedPay === 'twint' ? `
+            <div style="background:#f0f5ff;border-radius:10px;padding:1.2rem;text-align:center;margin-top:0.5rem">
+              <div style="font-size:3rem;margin-bottom:0.5rem">📱</div>
+              <p style="font-size:0.88rem;color:var(--brown)">Un QR code TWINT vous sera envoyé par SMS au <strong>${deliveryData.phone||'votre numéro'}</strong> après confirmation de la commande.</p>
+            </div>` : selectedPay === 'cash' ? `
+            <div style="background:#f5f5f0;border-radius:10px;padding:1.2rem;margin-top:0.5rem">
+              <p style="font-size:0.88rem;color:var(--brown)">💵 Veuillez préparer l'appoint exact si possible : <strong>CHF ${total.toFixed(2)}</strong>. Le livreur n'a pas toujours la monnaie.</p>
+            </div>` : `
+            <div style="background:#f5f0ff;border-radius:10px;padding:1.2rem;margin-top:0.5rem">
+              <p style="font-size:0.88rem;color:var(--brown)">🏦 Un lien PostFinance E-Finance vous sera envoyé par email à <strong>${deliveryData.email||'votre adresse'}</strong>.</p>
+            </div>`}
+            <div class="ssl-note">🔒 <span>Paiement 100% sécurisé · Connexion SSL chiffrée · Vos données sont protégées</span></div>
+            <div class="step-btns">
+              <button class="btn-back" onclick="prevStep()">← Retour</button>
+              <button class="btn-next" onclick="confirmOrder()">Confirmer la commande ✓</button>
+            </div>
+          </div>`,
+        4: `
+          <div class="step-panel active">
+            <div class="confirm-wrap">
+              <div class="confirm-check">✅</div>
+              <h3>Commande confirmée !</h3>
+              <p>Merci <strong>${deliveryData.name||'cher client'}</strong> !<br>Votre commande est en cours de préparation chez <strong>Tila's Restaurant</strong>.</p>
+              <div class="confirm-details">
+                <div class="cd-row"><span class="cdl">📦 Commande</span><span class="cdv">#TR-${Date.now().toString().slice(-6)}</span></div>
+                <div class="cd-row"><span class="cdl">📍 Livraison</span><span class="cdv">${deliveryData.street||''} ${deliveryData.num||''}, 2300 La Chaux-de-Fonds</span></div>
+                <div class="cd-row"><span class="cdl">💰 Total</span><span class="cdv">CHF ${total.toFixed(2)}</span></div>
+                <div class="cd-row"><span class="cdl">💳 Paiement</span><span class="cdv">${selectedPay==='card'?'Carte bancaire':selectedPay==='twint'?'TWINT':selectedPay==='cash'?'Espèces (livraison)':'PostFinance'}</span></div>
+                <div class="cd-row"><span class="cdl">⏱ Délai</span><span class="cdv">35–50 minutes</span></div>
+                <div class="cd-row"><span class="cdl">📧 Email</span><span class="cdv">${deliveryData.email||''}</span></div>
+              </div>
+              <p style="font-size:0.8rem">Pour toute question : <a href="tel:+41329250000" style="color:var(--gold);font-weight:700">+41 32 925 00 00</a></p>
+              <div class="step-btns" style="margin-top:1.5rem">
+                <button class="btn-next" style="flex:1" onclick="finishOrder()">Fermer · Retour à l'accueil</button>
+              </div>
+            </div>
+          </div>`
+      };
+      document.getElementById('stepContent').innerHTML = panels[checkoutStep] || '';
+    }
+
+    function nextStep() { checkoutStep++; renderCheckout(); }
+    function prevStep() { checkoutStep--; renderCheckout(); }
+
+    function validateDelivery() {
+      const n  = document.getElementById('dName')?.value.trim();
+      const p  = document.getElementById('dPhone')?.value.trim();
+      const s  = document.getElementById('dStreet')?.value.trim();
+      const nu = document.getElementById('dNum')?.value.trim();
+      const e  = document.getElementById('dEmail')?.value.trim();
+      if (!n || !p || !s || !nu || !e) { showToast('⚠️ Veuillez remplir tous les champs obligatoires'); return; }
+      if (!e.includes('@') || !e.includes('.')) { showToast('⚠️ Email invalide'); return; }
+      deliveryData = { name:n, phone:p, street:s, num:nu, email:e, note:document.getElementById('dNote')?.value.trim() };
+      nextStep();
+    }
+
+    function choosePay(m) { selectedPay = m; renderCheckout(); }
+
+    function confirmOrder() {
+      checkoutStep = 4;
+      renderCheckout();
+      clearCart();
+      renderCart();
+      showToast('📧 Email de confirmation envoyé à ' + (deliveryData.email || 'votre adresse'));
+    }
+
+    function finishOrder() {
+      closeCheckout();
+      deliveryData = {};
+      window.location.href = 'index.html';
+    }
+
+    // Init
+    renderCatTabs();
+    renderOrderItems();
+    renderCart();
+  </script>
+</body>
+</html>

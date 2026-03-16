@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu — Tila's Restaurant</title>
+  <meta name="description" content="Découvrez notre menu : entrées, plats, desserts, boissons et menu du midi. Cuisine française et internationale.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .menu-hero {
+      background: linear-gradient(135deg, #1A1208, #2D1A06);
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+    }
+    .menu-hero h1 { color: #fff; font-size: clamp(2.5rem,6vw,4rem); }
+    .menu-hero h1 span { color: var(--gold); }
+    .menu-hero p { color: rgba(255,255,255,0.5); margin-top: 0.6rem; font-size: 0.95rem; }
+
+    .menu-tabs-wrap {
+      background: var(--dark);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      position: sticky;
+      top: 70px;
+      z-index: 100;
+    }
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.3rem;
+      padding: 1rem 1.5rem;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .tab-btn {
+      background: none;
+      border: 1px solid rgba(201,168,76,0.25);
+      color: rgba(255,255,255,0.6);
+      padding: 0.55rem 1.4rem;
+      border-radius: 25px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: var(--transition);
+    }
+    .tab-btn:hover { border-color: rgba(201,168,76,0.6); color: var(--gold); }
+    .tab-btn.active { background: var(--gold); color: var(--dark); border-color: var(--gold); font-weight: 700; }
+
+    .menu-body { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+    .menu-section { display: none; }
+    .menu-section.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    .cat-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid var(--gold); display: inline-block; }
+    .cat-header h2 { font-size: 2rem; color: var(--dark); }
+    .cat-header p { color: var(--brown); font-size: 0.85rem; margin-top: 0.3rem; }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 1.5rem;
+    }
+    .menu-card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 3px 15px var(--shadow);
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .menu-card:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(0,0,0,0.14); }
+    .menu-card-img {
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+      flex-shrink: 0;
+    }
+    .menu-card-body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; gap: 0.5rem; }
+    .card-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--dark); font-weight: 700; flex: 1; }
+    .card-price { color: var(--gold); font-weight: 700; font-size: 1.05rem; white-space: nowrap; }
+    .card-desc { color: var(--brown); font-size: 0.82rem; line-height: 1.55; margin-bottom: 1rem; flex: 1; }
+    .card-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .card-add {
+      width: 100%;
+      background: var(--dark);
+      color: #fff;
+      border: none;
+      padding: 0.7rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: var(--transition);
+      margin-top: auto;
+    }
+    .card-add:hover { background: var(--gold); color: var(--dark); }
+
+    /* Midi section special style */
+    .midi-grid { display: flex; flex-direction: column; gap: 1rem; }
+    .midi-item {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      box-shadow: 0 3px 15px var(--shadow);
+      border-left: 4px solid var(--gold);
+      transition: var(--transition);
+    }
+    .midi-item:hover { transform: translateX(4px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
+    .midi-emoji { font-size: 3rem; flex-shrink: 0; }
+    .midi-info { flex: 1; }
+    .midi-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--dark); font-weight: 700; margin-bottom: 0.3rem; }
+    .midi-desc { color: var(--brown); font-size: 0.85rem; line-height: 1.5; }
+    .midi-right { text-align: right; flex-shrink: 0; }
+    .midi-price { color: var(--gold); font-weight: 700; font-size: 1.2rem; display: block; margin-bottom: 0.5rem; }
+    .midi-note { font-size: 0.75rem; color: var(--brown); background: #f5f0e8; padding: 0.3rem 0.7rem; border-radius: 15px; }
+
+    @media (max-width: 600px) {
+      .menu-grid { grid-template-columns: 1fr; }
+      .midi-item { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <div class="menu-hero">
+    <h1>Notre <span>Menu</span></h1>
+    <p>Cuisine française & internationale · Produits locaux · Saison 2026 · Prix en CHF TTC</p>
+  </div>
+
+  <div class="menu-tabs-wrap">
+    <div class="menu-tabs">
+      <button class="tab-btn active"  onclick="switchTab('entrees',  this)">🥗 Entrées</button>
+      <button class="tab-btn"         onclick="switchTab('plats',    this)">🍽 Plats</button>
+      <button class="tab-btn"         onclick="switchTab('desserts', this)">🍮 Desserts</button>
+      <button class="tab-btn"         onclick="switchTab('boissons', this)">🍷 Boissons</button>
+      <button class="tab-btn"         onclick="switchTab('midi',     this)">☀️ Menu Midi</button>
+    </div>
+  </div>
+
+  <div class="menu-body">
+    <div id="menu-content"></div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    renderNav('menu');
+    renderFooter();
+
+    const CAT_DESC = {
+      entrees:  "Nos entrées préparées avec des produits frais et de saison.",
+      plats:    "Plats généreux mijotés et cuisinés à la commande.",
+      desserts: "Douceurs maison pour finir en beauté.",
+      boissons: "Vins AOC Neuchâtel, cocktails et softs.",
+      midi:     "Formules du midi · Lun–Ven 11h30–14h00 · Rapport qualité-prix imbattable."
+    };
+
+    let currentTab = 'entrees';
+
+    function switchTab(cat, btn) {
+      currentTab = cat;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderMenuSection(cat);
+    }
+
+    function renderMenuSection(cat) {
+      const items = MENU_DATA[cat] || [];
+      const desc  = CAT_DESC[cat] || '';
+      let html = `
+        <div class="cat-header">
+          <h2>${CATEGORY_LABELS[cat]}</h2>
+          <p>${desc}</p>
+        </div>`;
+
+      if (cat === 'midi') {
+        html += `<div class="midi-grid">`;
+        items.forEach(item => {
+          html += `
+          <div class="midi-item">
+            <div class="midi-emoji">${item.emoji}</div>
+            <div class="midi-info">
+              <div class="midi-name">${item.name}</div>
+              <div class="midi-desc">${item.desc}</div>
+            </div>
+            <div class="midi-right">
+              <span class="midi-price">CHF ${item.price.toFixed(2)}</span>
+              <button class="midi-note" onclick='addToCart(${JSON.stringify({id:item.id,name:item.name,price:item.price,emoji:item.emoji})})'>+ Ajouter</button>
+            </div>
+          </div>`;
+        });
+        html += `</div>`;
+      } else {
+        html += `<div class="menu-grid">`;
+        items.forEach(item => {
+          const tagsHtml = item.tags ? item.tags.map(t => {
+            const cls = t==='Popular'?'tag-popular':t==='Vegan'||t==='Végétarien'?'tag-vegan':t==='Local'?'tag-local':t==='Maison'?'tag-maison':t==='Signature'?'tag-signature':'tag-classique';
+            return `<span class="tag ${cls}">${t}</span>`;
+          }).join('') : '';
+          html += `
+          <div class="menu-card">
+            <div class="menu-card-img">${item.emoji}</div>
+            <div class="menu-card-body">
+              <div class="card-top">
+                <div class="card-name">${item.name}</div>
+                <div class="card-price">CHF ${item.price.toFixed(2)}</div>
+              </div>
+              <p class="card-desc">${item.desc}</p>
+              ${tagsHtml ? `<div class="card-tags">${tagsHtml}</div>` : ''}
+              <button class="card-add" onclick='addToCart(${JSON.stringify({id:item.id,name:item.name,price:item.price,emoji:item.emoji})})'>+ Ajouter au panier</button>
+            </div>
+          </div>`;
+        });
+        html += `</div>`;
+      }
+      document.getElementById('menu-content').innerHTML = html;
+    }
+
+    renderMenuSection('entrees');
+  </script>
+</body>
+</html>
